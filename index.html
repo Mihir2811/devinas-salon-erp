@@ -843,6 +843,273 @@
             border-radius: 50%;
         }
 
+        .schedule-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .view-toggle-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .view-toggle-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .timeline-view {
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .timeline-hour {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            border-bottom: 1px solid var(--border);
+            min-height: 60px;
+        }
+
+        .timeline-hour:last-child {
+            border-bottom: none;
+        }
+
+        .hour-label {
+            padding: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light);
+            border-right: 1px solid var(--border);
+            background: var(--bg);
+        }
+
+        .hour-slots {
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .timeline-appointment {
+            background: var(--primary-light);
+            border-left: 3px solid var(--primary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .timeline-appointment.completed {
+            background: #D1FAE5;
+            border-left-color: #10B981;
+        }
+
+        .timeline-appointment.canceled {
+            background: #FEE2E2;
+            border-left-color: #EF4444;
+        }
+
+        .timeline-apt-time {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 2px;
+        }
+
+        .timeline-apt-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .timeline-apt-service {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            background: var(--bg);
+            padding: 12px 8px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .calendar-day {
+            background: var(--surface);
+            min-height: 100px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .calendar-day:hover {
+            background: var(--bg);
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.4;
+        }
+
+        .calendar-day.today {
+            background: var(--primary-light);
+        }
+
+        .day-number {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .day-appointments {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .calendar-apt {
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 4px;
+            background: var(--primary);
+            color: white;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .calendar-apt.completed {
+            background: #10B981;
+        }
+
+        .calendar-apt.canceled {
+            background: #EF4444;
+        }
+
+        .month-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background: var(--surface);
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .month-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .month-nav-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--bg);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-chip.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .category-input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .category-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 10px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .category-tag .remove {
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-grid {
+                font-size: 11px;
+            }
+            
+            .calendar-day {
+                min-height: 80px;
+                padding: 4px;
+            }
+            
+            .timeline-hour {
+                grid-template-columns: 60px 1fr;
+            }
+        }
+
         @media (min-width: 768px) {
             .container {
                 max-width: 1200px;
@@ -1046,7 +1313,52 @@
                             <h1 class="page-title">Appointments</h1>
                             <p class="page-subtitle">Manage your bookings</p>
                         </div>
-                        <div id="appointmentsList"></div>
+
+                        <div class="schedule-controls">
+                            <div class="view-toggle">
+                                <button class="view-toggle-btn active" data-schedule-view="list">List</button>
+                                <button class="view-toggle-btn" data-schedule-view="timeline">Timeline</button>
+                                <button class="view-toggle-btn" data-schedule-view="calendar">Calendar</button>
+                            </div>
+                            <select class="form-select" id="scheduleFilter" style="flex: 1; min-width: 150px;">
+                                <option value="all">All Appointments</option>
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-chips" id="statusFilters">
+                            <div class="filter-chip active" data-status="all">All</div>
+                            <div class="filter-chip" data-status="booked">Booked</div>
+                            <div class="filter-chip" data-status="completed">Completed</div>
+                            <div class="filter-chip" data-status="canceled">Canceled</div>
+                        </div>
+
+                        <!-- List View -->
+                        <div id="scheduleListView" style="margin-top: 20px;"></div>
+
+                        <!-- Timeline View -->
+                        <div id="scheduleTimelineView" style="display: none; margin-top: 20px;"></div>
+
+                        <!-- Calendar View -->
+                        <div id="scheduleCalendarView" style="display: none;">
+                            <div class="month-navigation">
+                                <button class="month-nav-btn" id="prevMonth">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                    </svg>
+                                </button>
+                                <div class="month-title" id="currentMonth">December 2024</div>
+                                <button class="month-nav-btn" id="nextMonth">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="calendar-grid" id="calendarGrid"></div>
+                        </div>
+
                         <button class="load-more-btn" id="loadMoreAppointments" style="display: none;">
                             Load More Appointments
                         </button>
@@ -1380,12 +1692,16 @@
                     <label class="form-label">Category</label>
                     <select class="form-select" id="purchaseCategory">
                         <option value="">Select category...</option>
-                        <option value="Hair Products">Hair Products</option>
-                        <option value="Nail Products">Nail Products</option>
-                        <option value="Spa Products">Spa Products</option>
-                        <option value="Equipment">Equipment</option>
-                        <option value="Supplies">Supplies</option>
                     </select>
+                    <div class="category-input-group" style="margin-top: 12px;">
+                        <input type="text" class="form-input" id="newCategory" placeholder="New category name" style="flex: 1;">
+                        <button class="btn btn-secondary" id="addCategoryBtn" style="width: auto; padding: 12px 20px;">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="category-list" id="categoryList"></div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Quantity</label>
@@ -1524,6 +1840,11 @@
                 {id: 2, name: 'Hair Color', price: 120, duration: 90, category: 'Hair Services', status: 'active'},
                 {id: 3, name: 'Manicure', price: 45, duration: 30, category: 'Nail Services', status: 'active'}
             ],
+            purchaseCategories: ['Hair Products', 'Nail Products', 'Spa Products', 'Equipment', 'Supplies'],
+            scheduleView: 'list',
+            scheduleFilter: 'all',
+            statusFilter: 'all',
+            currentCalendarMonth: new Date(),
             displayCounts: {
                 appointments: 10,
                 clients: 10,
@@ -1536,7 +1857,16 @@
         const loadState = () => {
             const saved = localStorage.getItem('devinaSalonData');
             if (saved) {
-                state = JSON.parse(saved);
+                try {
+                    const parsed = JSON.parse(saved);
+                    state = {...state, ...parsed};
+                    // Ensure currentCalendarMonth is a Date object
+                    if (state.currentCalendarMonth) {
+                        state.currentCalendarMonth = new Date(state.currentCalendarMonth);
+                    }
+                } catch(e) {
+                    console.error('Error loading state:', e);
+                }
             }
         };
 
@@ -1608,6 +1938,252 @@
             }
         });
 
+        // Schedule Filtering
+        function getFilteredAppointments() {
+            let filtered = [...state.appointments];
+            
+            // Status filter
+            if (state.statusFilter !== 'all') {
+                filtered = filtered.filter(a => a.status === state.statusFilter);
+            }
+            
+            // Date range filter
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            switch(state.scheduleFilter) {
+                case 'today':
+                    const todayStr = today.toISOString().split('T')[0];
+                    filtered = filtered.filter(a => a.date === todayStr);
+                    break;
+                case 'week':
+                    const weekEnd = new Date(today);
+                    weekEnd.setDate(today.getDate() + 7);
+                    filtered = filtered.filter(a => {
+                        const aptDate = new Date(a.date);
+                        return aptDate >= today && aptDate <= weekEnd;
+                    });
+                    break;
+                case 'month':
+                    const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+                    const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+                    filtered = filtered.filter(a => {
+                        const aptDate = new Date(a.date);
+                        return aptDate >= monthStart && aptDate <= monthEnd;
+                    });
+                    break;
+            }
+            
+            return filtered.sort((a, b) => {
+                const dateCompare = a.date.localeCompare(b.date);
+                if (dateCompare !== 0) return dateCompare;
+                return a.time.localeCompare(b.time);
+            });
+        }
+
+        // Render Schedule List View
+        function renderScheduleList() {
+            const appointments = getFilteredAppointments();
+            const limit = state.displayCounts.appointments;
+            const displayed = appointments.slice(0, limit);
+            
+            const html = displayed.map(a => `
+                <div class="list-item">
+                    <div class="item-icon" style="background: #EEF2FF; color: #6366F1;">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="item-content">
+                        <div class="item-title">${a.client}</div>
+                        <div class="item-subtitle">${a.service} • ${a.date} ${a.time}</div>
+                    </div>
+                    <div class="item-action">
+                        <span class="badge badge-${a.status === 'completed' ? 'success' : a.status === 'canceled' ? 'danger' : 'primary'}">${a.status}</span>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="editAppointment(${a.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="deleteAppointment(${a.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('scheduleListView').innerHTML = html || '<div class="empty-state"><div class="empty-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="40" height="40"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div><div class="empty-title">No appointments found</div><div class="empty-text">Try adjusting your filters</div></div>';
+            
+            const loadMoreBtn = document.getElementById('loadMoreAppointments');
+            loadMoreBtn.style.display = appointments.length > limit ? 'block' : 'none';
+        }
+
+        // Render Timeline View
+        function renderScheduleTimeline() {
+            const appointments = getFilteredAppointments();
+            const hours = Array.from({length: 12}, (_, i) => i + 7); // 7am to 6pm
+            
+            const html = hours.map(hour => {
+                const hourStr = hour.toString().padStart(2, '0');
+                const hourAppointments = appointments.filter(a => {
+                    const aptHour = parseInt(a.time.split(':')[0]);
+                    return aptHour === hour;
+                });
+                
+                return `
+                    <div class="timeline-hour">
+                        <div class="hour-label">${hour > 12 ? hour - 12 : hour}:00 ${hour >= 12 ? 'PM' : 'AM'}</div>
+                        <div class="hour-slots">
+                            ${hourAppointments.map(a => `
+                                <div class="timeline-appointment ${a.status}" onclick="editAppointment(${a.id})">
+                                    <div class="timeline-apt-time">${a.time} - ${addMinutes(a.time, a.duration)}</div>
+                                    <div class="timeline-apt-title">${a.client}</div>
+                                    <div class="timeline-apt-service">${a.service}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('scheduleTimelineView').innerHTML = `<div class="timeline-view">${html}</div>`;
+        }
+
+        // Helper function to add minutes to time
+        function addMinutes(time, minutes) {
+            const [hours, mins] = time.split(':').map(Number);
+            const date = new Date();
+            date.setHours(hours, mins + minutes);
+            return date.toTimeString().slice(0, 5);
+        }
+
+        // Render Calendar View
+        function renderScheduleCalendar() {
+            const year = state.currentCalendarMonth.getFullYear();
+            const month = state.currentCalendarMonth.getMonth();
+            
+            // Update month title
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                                'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+            
+            // Calendar headers
+            const headers = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            let html = headers.map(day => `<div class="calendar-header">${day}</div>`).join('');
+            
+            // Previous month days
+            for (let i = firstDay - 1; i >= 0; i--) {
+                html += `<div class="calendar-day other-month"><div class="day-number">${daysInPrevMonth - i}</div></div>`;
+            }
+            
+            // Current month days
+            const today = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                const isToday = dateStr === today.toISOString().split('T')[0];
+                const dayAppointments = state.appointments.filter(a => a.date === dateStr);
+                
+                html += `
+                    <div class="calendar-day ${isToday ? 'today' : ''}" onclick="openDayAppointments('${dateStr}')">
+                        <div class="day-number">${day}</div>
+                        <div class="day-appointments">
+                            ${dayAppointments.slice(0, 3).map(a => `
+                                <div class="calendar-apt ${a.status}">${a.time} ${a.client}</div>
+                            `).join('')}
+                            ${dayAppointments.length > 3 ? `<div class="calendar-apt">+${dayAppointments.length - 3} more</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Next month days
+            const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
+            const nextMonthDays = totalCells - (firstDay + daysInMonth);
+            for (let day = 1; day <= nextMonthDays; day++) {
+                html += `<div class="calendar-day other-month"><div class="day-number">${day}</div></div>`;
+            }
+            
+            document.getElementById('calendarGrid').innerHTML = html;
+        }
+
+        function openDayAppointments(date) {
+            state.scheduleFilter = 'all';
+            state.statusFilter = 'all';
+            state.scheduleView = 'list';
+            
+            // Filter to show only this date
+            const dayAppointments = state.appointments.filter(a => a.date === date);
+            
+            if (dayAppointments.length === 0) {
+                // Open booking modal with this date
+                document.getElementById('bookingModalTitle').textContent = 'New Appointment';
+                document.getElementById('editAppointmentId').value = '';
+                document.getElementById('bookingClient').value = '';
+                document.getElementById('bookingService').value = '';
+                document.getElementById('bookingDate').value = date;
+                document.getElementById('bookingTime').value = '';
+                document.getElementById('bookingStatus').value = 'booked';
+                document.getElementById('bookingNotes').value = '';
+                document.getElementById('paymentGroup').style.display = 'none';
+                openModal('bookingModal');
+            } else {
+                renderScheduleViews();
+            }
+        }
+
+        // Update schedule views based on current view
+        function renderScheduleViews() {
+            document.getElementById('scheduleListView').style.display = 'none';
+            document.getElementById('scheduleTimelineView').style.display = 'none';
+            document.getElementById('scheduleCalendarView').style.display = 'none';
+            
+            switch(state.scheduleView) {
+                case 'list':
+                    document.getElementById('scheduleListView').style.display = 'block';
+                    renderScheduleList();
+                    break;
+                case 'timeline':
+                    document.getElementById('scheduleTimelineView').style.display = 'block';
+                    renderScheduleTimeline();
+                    break;
+                case 'calendar':
+                    document.getElementById('scheduleCalendarView').style.display = 'block';
+                    renderScheduleCalendar();
+                    break;
+            }
+        }
+
+        // Render purchase categories
+        function renderPurchaseCategories() {
+            const select = document.getElementById('purchaseCategory');
+            select.innerHTML = '<option value="">Select category...</option>' +
+                state.purchaseCategories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+            
+            const categoryList = document.getElementById('categoryList');
+            categoryList.innerHTML = state.purchaseCategories.map(cat => `
+                <div class="category-tag">
+                    ${cat}
+                    <span class="remove" onclick="removeCategory('${cat}')">×</span>
+                </div>
+            `).join('');
+        }
+
+        function removeCategory(category) {
+            if (confirm(`Remove category "${category}"? Existing purchases will keep this category.`)) {
+                state.purchaseCategories = state.purchaseCategories.filter(c => c !== category);
+                saveState();
+                renderPurchaseCategories();
+                showToast('Category removed');
+            }
+        }
+
         // Render Functions
         function renderStats() {
             const totalRevenue = state.sales.reduce((sum, s) => sum + s.amount, 0);
@@ -1630,11 +2206,11 @@
         }
 
         function renderAppointments() {
-            const limit = state.displayCounts.appointments;
-            const appointments = state.appointments.slice(0, limit);
-            const hasMore = state.appointments.length > limit;
+            // Dashboard today's appointments
+            const todayStr = new Date().toISOString().split('T')[0];
+            const todayApts = state.appointments.filter(a => a.date === todayStr);
             
-            const html = appointments.map(a => `
+            const html = todayApts.map(a => `
                 <div class="list-item">
                     <div class="item-icon" style="background: #EEF2FF; color: #6366F1;">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
@@ -1647,26 +2223,15 @@
                     </div>
                     <div class="item-action">
                         <span class="badge badge-${a.status === 'completed' ? 'success' : a.status === 'canceled' ? 'danger' : 'primary'}">${a.status}</span>
-                        <button class="btn btn-sm btn-icon btn-secondary" onclick="editAppointment(${a.id})">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                            </svg>
-                        </button>
-                        <button class="btn btn-sm btn-icon btn-secondary" onclick="deleteAppointment(${a.id})">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                            </svg>
-                        </button>
                     </div>
                 </div>
             `).join('');
 
-            document.getElementById('todayAppointments').innerHTML = html;
-            document.getElementById('appointmentsList').innerHTML = html;
-            document.getElementById('appointmentBadge').textContent = state.appointments.length;
+            document.getElementById('todayAppointments').innerHTML = html || '<div class="empty-state"><div class="empty-text">No appointments today</div></div>';
+            document.getElementById('appointmentBadge').textContent = todayApts.length;
             
-            const loadMoreBtn = document.getElementById('loadMoreAppointments');
-            loadMoreBtn.style.display = hasMore ? 'block' : 'none';
+            // Render schedule views
+            renderScheduleViews();
         }
 
         function renderClients() {
@@ -2160,7 +2725,7 @@
         // Load More Buttons
         document.getElementById('loadMoreAppointments').addEventListener('click', () => {
             state.displayCounts.appointments += 10;
-            renderAppointments();
+            renderScheduleList();
         });
 
         document.getElementById('loadMoreClients').addEventListener('click', () => {
@@ -2176,6 +2741,67 @@
         document.getElementById('loadMorePurchases').addEventListener('click', () => {
             state.displayCounts.purchases += 10;
             renderPurchases();
+        });
+
+        // Schedule view toggle
+        document.querySelectorAll('.view-toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.view-toggle-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                state.scheduleView = btn.dataset.scheduleView;
+                renderScheduleViews();
+            });
+        });
+
+        // Schedule filter
+        document.getElementById('scheduleFilter').addEventListener('change', (e) => {
+            state.scheduleFilter = e.target.value;
+            renderScheduleViews();
+        });
+
+        // Status filters
+        document.querySelectorAll('#statusFilters .filter-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('#statusFilters .filter-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                state.statusFilter = chip.dataset.status;
+                renderScheduleViews();
+            });
+        });
+
+        // Calendar navigation
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            state.currentCalendarMonth = new Date(
+                state.currentCalendarMonth.getFullYear(),
+                state.currentCalendarMonth.getMonth() - 1
+            );
+            renderScheduleCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            state.currentCalendarMonth = new Date(
+                state.currentCalendarMonth.getFullYear(),
+                state.currentCalendarMonth.getMonth() + 1
+            );
+            renderScheduleCalendar();
+        });
+
+        // Add category
+        document.getElementById('addCategoryBtn').addEventListener('click', () => {
+            const newCat = document.getElementById('newCategory').value.trim();
+            if (!newCat) {
+                showToast('Enter a category name');
+                return;
+            }
+            if (state.purchaseCategories.includes(newCat)) {
+                showToast('Category already exists');
+                return;
+            }
+            state.purchaseCategories.push(newCat);
+            document.getElementById('newCategory').value = '';
+            saveState();
+            renderPurchaseCategories();
+            showToast('Category added!');
         });
 
         // Add buttons for modals
@@ -2266,6 +2892,9 @@
                 try {
                     const imported = JSON.parse(event.target.result);
                     state = {...state, ...imported};
+                    if (state.currentCalendarMonth) {
+                        state.currentCalendarMonth = new Date(state.currentCalendarMonth);
+                    }
                     saveState();
                     renderAll();
                     showToast('Data imported successfully!');
@@ -2284,6 +2913,11 @@
                     sales: [],
                     purchases: [],
                     services: [],
+                    purchaseCategories: ['Hair Products', 'Nail Products', 'Spa Products', 'Equipment', 'Supplies'],
+                    scheduleView: 'list',
+                    scheduleFilter: 'all',
+                    statusFilter: 'all',
+                    currentCalendarMonth: new Date(),
                     displayCounts: {appointments: 10, clients: 10, sales: 10, purchases: 10}
                 };
                 saveState();
@@ -2303,6 +2937,7 @@
             renderReports();
             renderQuickStats();
             populateDropdowns();
+            renderPurchaseCategories();
         }
 
         document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
