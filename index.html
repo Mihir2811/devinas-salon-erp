@@ -1727,6 +1727,63 @@
         </div>
     </div>
 
+    <!-- Sale Modal -->
+    <div class="modal-overlay" id="saleModal">
+        <div class="modal">
+            <div class="modal-handle"></div>
+            <div class="modal-header">
+                <h3 class="modal-title" id="saleModalTitle">New Sale</h3>
+                <button class="modal-close" onclick="closeModal('saleModal')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editSaleId">
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-input" id="saleDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Client</label>
+                    <input type="text" class="form-input" id="saleClient" list="saleClientList" placeholder="Client name">
+                    <datalist id="saleClientList"></datalist>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Service</label>
+                    <input type="text" class="form-input" id="saleService" list="saleServiceList" placeholder="Service name">
+                    <datalist id="saleServiceList"></datalist>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Amount ($)</label>
+                    <input type="number" class="form-input" id="saleAmount" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Payment Method</label>
+                    <select class="form-select" id="salePayment">
+                        <option value="cash">Cash</option>
+                        <option value="card">Card</option>
+                        <option value="bank">Bank Transfer</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" id="saleStatus">
+                        <option value="paid">Paid</option>
+                        <option value="pending">Pending</option>
+                        <option value="refunded">Refunded</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('saleModal')">Cancel</button>
+                <button class="btn btn-primary" id="saveSale">Save</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Client Modal -->
     <div class="modal-overlay" id="clientModal">
         <div class="modal">
@@ -1817,29 +1874,11 @@
     <script>
         // State
         let state = {
-            appointments: [
-                {id: 1, client: 'Sarah Johnson', service: 'Haircut & Color', date: '2024-12-16', time: '09:00', duration: 90, price: 125, status: 'booked', payment: null},
-                {id: 2, client: 'Emily Chen', service: 'Manicure & Pedicure', date: '2024-12-16', time: '10:30', duration: 60, price: 75, status: 'completed', payment: 'card'},
-                {id: 3, client: 'Michael Torres', service: "Men's Haircut", date: '2024-12-16', time: '14:00', duration: 30, price: 35, status: 'booked', payment: null}
-            ],
-            clients: [
-                {id: 1, name: 'Sarah Johnson', phone: '(555) 123-4567', email: 'sarah@email.com'},
-                {id: 2, name: 'Emily Chen', phone: '(555) 234-5678', email: 'emily@email.com'},
-                {id: 3, name: 'Michael Torres', phone: '(555) 345-6789', email: 'michael@email.com'}
-            ],
-            sales: [
-                {id: 1, date: '2024-12-16', client: 'Sarah Johnson', service: 'Haircut & Color', payment: 'card', status: 'paid', amount: 125},
-                {id: 2, date: '2024-12-16', client: 'Emily Chen', service: 'Manicure', payment: 'cash', status: 'paid', amount: 75}
-            ],
-            purchases: [
-                {id: 1, date: '2024-12-15', item: 'Hair Color - Blonde', category: 'Hair Products', quantity: 10, price: 25, total: 250, description: ''},
-                {id: 2, date: '2024-12-14', item: 'Nail Polish Set', category: 'Nail Products', quantity: 5, price: 30, total: 150, description: ''}
-            ],
-            services: [
-                {id: 1, name: "Women's Haircut", price: 65, duration: 45, category: 'Hair Services', status: 'active'},
-                {id: 2, name: 'Hair Color', price: 120, duration: 90, category: 'Hair Services', status: 'active'},
-                {id: 3, name: 'Manicure', price: 45, duration: 30, category: 'Nail Services', status: 'active'}
-            ],
+            appointments: [],
+            clients: [],
+            sales: [],
+            purchases: [],
+            services: [],
             purchaseCategories: ['Hair Products', 'Nail Products', 'Spa Products', 'Equipment', 'Supplies'],
             scheduleView: 'list',
             scheduleFilter: 'all',
@@ -2279,13 +2318,20 @@
             const totalRevenue = state.sales.reduce((sum, s) => sum + s.amount, 0);
             document.getElementById('totalRevenue').textContent = totalRevenue;
 
-            document.getElementById('salesTable').innerHTML = sales.map(s => `
+            const statusBadge = (status) => status === 'paid' ? 'success' : status === 'refunded' ? 'danger' : 'primary';
+
+            document.getElementById('salesTable').innerHTML = sales.length ? sales.map(s => `
                 <tr>
                     <td>${s.date}</td>
                     <td>${s.client}</td>
                     <td style="font-weight: 600;">$${s.amount}</td>
-                    <td><span class="badge badge-success">${s.status}</span></td>
+                    <td><span class="badge badge-${statusBadge(s.status)}">${s.status}</span></td>
                     <td>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="editSale(${s.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                        </button>
                         <button class="btn btn-sm btn-icon btn-secondary" onclick="deleteSale(${s.id})">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
@@ -2293,7 +2339,7 @@
                         </button>
                     </td>
                 </tr>
-            `).join('');
+            `).join('') : `<tr><td colspan="5"><div class="empty-state"><div class="empty-text">No sales yet</div></div></td></tr>`;
             
             const loadMoreBtn = document.getElementById('loadMoreSales');
             loadMoreBtn.style.display = hasMore ? 'block' : 'none';
@@ -2395,16 +2441,35 @@
         }
 
         function renderReports() {
-            const totalRevenue = state.sales.reduce((sum, s) => sum + s.amount, 0);
-            const totalExpenses = state.purchases.reduce((sum, p) => sum + p.total, 0);
+            const periodDays = parseInt(document.getElementById('reportPeriod')?.value || '30');
+            const reportType = document.getElementById('reportType')?.value || 'all';
+
+            const cutoff = new Date();
+            cutoff.setHours(0, 0, 0, 0);
+            cutoff.setDate(cutoff.getDate() - (periodDays - 1));
+
+            const inPeriod = (dateStr) => {
+                const d = new Date(dateStr);
+                return !isNaN(d) && d >= cutoff;
+            };
+
+            const periodSales = state.sales.filter(s => inPeriod(s.date));
+            const periodPurchases = state.purchases.filter(p => inPeriod(p.date));
+            const periodAppointments = state.appointments.filter(a => inPeriod(a.date));
+
+            const totalRevenue = periodSales.reduce((sum, s) => sum + s.amount, 0);
+            const totalExpenses = periodPurchases.reduce((sum, p) => sum + p.total, 0);
             const profit = totalRevenue - totalExpenses;
 
-            const stats = [
-                {label: 'Revenue', value: `$${totalRevenue}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`, color: '#6366F1'},
-                {label: 'Expenses', value: `$${totalExpenses}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>`, color: '#EF4444'},
-                {label: 'Profit', value: `$${profit}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>`, color: '#10B981'},
-                {label: 'Avg Sale', value: `$${(totalRevenue / Math.max(state.sales.length, 1)).toFixed(0)}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`, color: '#F59E0B'}
+            const allStats = [
+                {label: 'Revenue', value: `$${totalRevenue.toFixed(0)}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`, color: '#6366F1', types: ['all', 'revenue']},
+                {label: 'Expenses', value: `$${totalExpenses.toFixed(0)}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>`, color: '#EF4444', types: ['all', 'revenue']},
+                {label: 'Profit', value: `$${profit.toFixed(0)}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>`, color: '#10B981', types: ['all', 'revenue']},
+                {label: 'Avg Sale', value: `$${(totalRevenue / Math.max(periodSales.length, 1)).toFixed(0)}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`, color: '#F59E0B', types: ['all', 'revenue']},
+                {label: 'Appointments', value: periodAppointments.length, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`, color: '#3B82F6', types: ['all', 'appointments']},
+                {label: 'Completed', value: periodAppointments.filter(a => a.status === 'completed').length, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`, color: '#10B981', types: ['all', 'appointments']}
             ];
+            const stats = allStats.filter(s => s.types.includes(reportType));
 
             document.getElementById('reportStats').innerHTML = stats.map(s => `
                 <div class="stat-card">
@@ -2416,35 +2481,96 @@
                 </div>
             `).join('');
 
-            // Chart
-            const heights = [60, 85, 45, 90, 75, 100, 55];
-            const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-            document.getElementById('revenueChart').innerHTML = heights.map((h, i) => `
-                <div class="chart-bar" style="height: ${h}%;">
-                    <div class="chart-label">${labels[i]}</div>
-                </div>
-            `).join('');
+            // Revenue Trend chart - bucketed to keep it readable across periods
+            const bucketCount = periodDays <= 7 ? periodDays : periodDays <= 30 ? Math.ceil(periodDays / 7) : periodDays <= 90 ? Math.ceil(periodDays / 15) : 12;
+            const bucketSpanDays = Math.max(1, Math.ceil(periodDays / bucketCount));
+            const buckets = [];
+            for (let i = 0; i < bucketCount; i++) {
+                const bucketEnd = new Date();
+                bucketEnd.setHours(0, 0, 0, 0);
+                bucketEnd.setDate(bucketEnd.getDate() - (bucketCount - 1 - i) * bucketSpanDays);
+                const bucketStart = new Date(bucketEnd);
+                bucketStart.setDate(bucketStart.getDate() - (bucketSpanDays - 1));
+                buckets.push({start: bucketStart, end: bucketEnd, total: 0});
+            }
+            periodSales.forEach(s => {
+                const d = new Date(s.date);
+                for (const b of buckets) {
+                    if (d >= b.start && d <= b.end) { b.total += s.amount; break; }
+                }
+            });
+            const maxTotal = Math.max(...buckets.map(b => b.total), 1);
+            const chartEl = document.getElementById('revenueChart');
+            if (periodSales.length === 0) {
+                chartEl.innerHTML = '';
+                chartEl.parentElement.querySelector('.empty-chart-msg')?.remove();
+                chartEl.style.display = 'none';
+                chartEl.insertAdjacentHTML('afterend', '<div class="empty-state empty-chart-msg"><div class="empty-text">No sales data yet for this period</div></div>');
+            } else {
+                chartEl.parentElement.querySelector('.empty-chart-msg')?.remove();
+                chartEl.style.display = 'flex';
+                chartEl.innerHTML = buckets.map(b => {
+                    const h = Math.max(6, Math.round((b.total / maxTotal) * 100));
+                    const label = bucketSpanDays === 1
+                        ? b.end.toLocaleDateString('en-US', {weekday: 'short'})
+                        : `${b.start.getMonth() + 1}/${b.start.getDate()}`;
+                    return `<div class="chart-bar" style="height: ${h}%;" title="$${b.total.toFixed(0)}"><div class="chart-label">${label}</div></div>`;
+                }).join('');
+            }
 
-            // Top Services
-            document.getElementById('topServices').innerHTML = state.services.slice(0, 5).map((s, i) => `
+            // Appointment Distribution donut
+            const statusCounts = {completed: 0, booked: 0, canceled: 0};
+            periodAppointments.forEach(a => { if (a.status in statusCounts) statusCounts[a.status]++; });
+            const totalApts = periodAppointments.length;
+            const circumference = 503;
+            const donutSvg = document.querySelector('#appointmentDonut svg');
+            if (totalApts === 0) {
+                donutSvg.innerHTML = `<circle cx="100" cy="100" r="80" fill="none" stroke="var(--border)" stroke-width="40"/>`;
+            } else {
+                const segs = [
+                    {count: statusCounts.completed, color: '#10B981'},
+                    {count: statusCounts.canceled, color: '#EF4444'},
+                    {count: statusCounts.booked, color: '#F59E0B'}
+                ];
+                let offset = 0;
+                donutSvg.innerHTML = segs.map(seg => {
+                    const len = (seg.count / totalApts) * circumference;
+                    const circle = `<circle cx="100" cy="100" r="80" fill="none" stroke="${seg.color}" stroke-width="40" stroke-dasharray="${len} ${circumference}" stroke-dashoffset="${-offset}" transform="rotate(-90 100 100)"/>`;
+                    offset += len;
+                    return circle;
+                }).join('');
+            }
+            const pct = (n) => totalApts ? Math.round((n / totalApts) * 100) : 0;
+            const legendItems = document.querySelectorAll('.chart-legend .legend-item');
+            if (legendItems.length === 3) {
+                legendItems[0].querySelector('div[style*="font-weight"]').textContent = `${pct(statusCounts.completed)}%`;
+                legendItems[1].querySelector('div[style*="font-weight"]').textContent = `${pct(statusCounts.canceled)}%`;
+                legendItems[2].querySelector('div[style*="font-weight"]').textContent = `${pct(statusCounts.booked)}%`;
+            }
+
+            // Top Services by actual revenue
+            const serviceRevenue = {};
+            periodSales.forEach(s => { serviceRevenue[s.service] = (serviceRevenue[s.service] || 0) + s.amount; });
+            const topServices = Object.entries(serviceRevenue).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            document.getElementById('topServices').innerHTML = topServices.length ? topServices.map(([name, revenue]) => `
                 <div class="list-item" style="border: none; box-shadow: none; padding: 12px 0;">
                     <div class="item-content">
-                        <div class="item-title">${s.name}</div>
+                        <div class="item-title">${name}</div>
                     </div>
                     <div class="item-action">
-                        <div style="font-weight: 700;">$${s.price * (10 - i * 2)}</div>
+                        <div style="font-weight: 700;">$${revenue.toFixed(0)}</div>
                     </div>
                 </div>
-            `).join('');
+            `).join('') : '<div class="empty-state"><div class="empty-text">No sales data yet</div></div>';
 
             // Payment Methods
-            const paymentCounts = state.sales.reduce((acc, s) => {
+            const paymentCounts = periodSales.reduce((acc, s) => {
                 acc[s.payment] = (acc[s.payment] || 0) + 1;
                 return acc;
             }, {});
             
-            const total = state.sales.length;
-            document.getElementById('paymentMethods').innerHTML = Object.entries(paymentCounts).map(([method, count]) => `
+            const total = periodSales.length;
+            document.getElementById('paymentMethods').innerHTML = total ? Object.entries(paymentCounts).map(([method, count]) => `
                 <div class="list-item" style="border: none; box-shadow: none; padding: 12px 0;">
                     <div class="item-content">
                         <div class="item-title">${method.charAt(0).toUpperCase() + method.slice(1)}</div>
@@ -2453,7 +2579,7 @@
                         <div style="font-weight: 700;">${((count / total) * 100).toFixed(0)}%</div>
                     </div>
                 </div>
-            `).join('');
+            `).join('') : '<div class="empty-state"><div class="empty-text">No sales data yet</div></div>';
         }
 
         function populateDropdowns() {
@@ -2462,6 +2588,12 @@
 
             document.getElementById('bookingService').innerHTML = '<option value="">Select service...</option>' +
                 state.services.map(s => `<option value="${s.name}" data-price="${s.price}" data-duration="${s.duration}">${s.name} - $${s.price}</option>`).join('');
+
+            document.getElementById('saleClientList').innerHTML =
+                state.clients.map(c => `<option value="${c.name}">`).join('');
+
+            document.getElementById('saleServiceList').innerHTML =
+                state.services.map(s => `<option value="${s.name}">`).join('');
         }
 
         // CRUD Operations
@@ -2565,6 +2697,22 @@
             }
         }
 
+        function editSale(id) {
+            const sale = state.sales.find(s => s.id === id);
+            if (!sale) return;
+
+            document.getElementById('saleModalTitle').textContent = 'Edit Sale';
+            document.getElementById('editSaleId').value = id;
+            document.getElementById('saleDate').value = sale.date;
+            document.getElementById('saleClient').value = sale.client;
+            document.getElementById('saleService').value = sale.service;
+            document.getElementById('saleAmount').value = sale.amount;
+            document.getElementById('salePayment').value = sale.payment || 'cash';
+            document.getElementById('saleStatus').value = sale.status || 'paid';
+
+            openModal('saleModal');
+        }
+
         function deleteSale(id) {
             if (confirm('Delete this sale?')) {
                 state.sales = state.sales.filter(s => s.id !== id);
@@ -2610,17 +2758,33 @@
                 payment: status === 'completed' ? document.getElementById('bookingPayment').value : null
             };
 
+            let appointmentId;
             if (id) {
+                appointmentId = Number(id);
                 const index = state.appointments.findIndex(a => a.id == id);
                 state.appointments[index] = {...state.appointments[index], ...appointmentData};
                 showToast('Appointment updated!');
             } else {
-                state.appointments.push({id: Date.now(), ...appointmentData});
-                
-                // Add to sales if completed
-                if (status === 'completed') {
+                appointmentId = Date.now();
+                state.appointments.push({id: appointmentId, ...appointmentData});
+                showToast('Appointment booked!');
+            }
+
+            // Keep sales in sync with appointment status
+            const linkedSaleIndex = state.sales.findIndex(s => s.appointmentId === appointmentId);
+            if (status === 'completed') {
+                if (linkedSaleIndex > -1) {
+                    // Update the existing linked sale to reflect current details
+                    state.sales[linkedSaleIndex] = {
+                        ...state.sales[linkedSaleIndex],
+                        date, client, service,
+                        payment: appointmentData.payment,
+                        amount: selectedService.price
+                    };
+                } else {
                     state.sales.push({
-                        id: Date.now(),
+                        id: Date.now() + 1,
+                        appointmentId,
                         date,
                         client,
                         service,
@@ -2629,12 +2793,44 @@
                         amount: selectedService.price
                     });
                 }
-                showToast('Appointment booked!');
+            } else if (linkedSaleIndex > -1) {
+                // Status moved away from completed - remove the auto-generated sale
+                state.sales.splice(linkedSaleIndex, 1);
             }
 
             saveState();
             renderAll();
             closeModal('bookingModal');
+        });
+
+        document.getElementById('saveSale').addEventListener('click', () => {
+            const id = document.getElementById('editSaleId').value;
+            const date = document.getElementById('saleDate').value;
+            const client = document.getElementById('saleClient').value.trim();
+            const service = document.getElementById('saleService').value.trim();
+            const amount = parseFloat(document.getElementById('saleAmount').value);
+            const payment = document.getElementById('salePayment').value;
+            const status = document.getElementById('saleStatus').value;
+
+            if (!date || !client || !service || isNaN(amount)) {
+                showToast('Please fill all required fields');
+                return;
+            }
+
+            const saleData = {date, client, service, amount, payment, status};
+
+            if (id) {
+                const index = state.sales.findIndex(s => s.id == id);
+                state.sales[index] = {...state.sales[index], ...saleData};
+                showToast('Sale updated!');
+            } else {
+                state.sales.push({id: Date.now(), ...saleData});
+                showToast('Sale added!');
+            }
+
+            saveState();
+            renderAll();
+            closeModal('saleModal');
         });
 
         document.getElementById('savePurchase').addEventListener('click', () => {
@@ -2759,6 +2955,10 @@
             renderScheduleViews();
         });
 
+        // Report filters
+        document.getElementById('reportPeriod').addEventListener('change', renderReports);
+        document.getElementById('reportType').addEventListener('change', renderReports);
+
         // Status filters
         document.querySelectorAll('#statusFilters .filter-chip').forEach(chip => {
             chip.addEventListener('click', () => {
@@ -2806,6 +3006,16 @@
 
         // Add buttons for modals
         const addButtons = [
+            {selector: '#sales .page-header', modal: 'saleModal', title: 'New Sale', clear: () => {
+                document.getElementById('saleModalTitle').textContent = 'New Sale';
+                document.getElementById('editSaleId').value = '';
+                document.getElementById('saleDate').value = new Date().toISOString().split('T')[0];
+                document.getElementById('saleClient').value = '';
+                document.getElementById('saleService').value = '';
+                document.getElementById('saleAmount').value = '';
+                document.getElementById('salePayment').value = 'cash';
+                document.getElementById('saleStatus').value = 'paid';
+            }},
             {selector: '#purchases .page-header', modal: 'purchaseModal', title: 'New Purchase', clear: () => {
                 document.getElementById('purchaseModalTitle').textContent = 'New Purchase';
                 document.getElementById('editPurchaseId').value = '';
