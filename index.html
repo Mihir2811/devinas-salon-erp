@@ -1,923 +1,1813 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Devina's Salon — ERP</title>
-<meta name="description" content="Devina's Salon management system">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-/* ============================================================
-   DEVINA'S SALON ERP — DESIGN SYSTEM
-   ============================================================ */
-:root{
-  --bg:#F7F8FA;
-  --surface:#FFFFFF;
-  --surface-soft:#F1F4F8;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devina's Salon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --primary-light: #EEF2FF;
+            --secondary: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --info: #3B82F6;
+            --bg: #F9FAFB;
+            --surface: #FFFFFF;
+            --text: #111827;
+            --text-light: #6B7280;
+            --text-lighter: #9CA3AF;
+            --border: #E5E7EB;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+        }
 
-  --primary:#6184E8;
-  --primary-dark:#4A6BD4;
-  --primary-soft:#EAF0FF;
+        [data-theme="dark"] {
+            --bg: #0F172A;
+            --surface: #1E293B;
+            --text: #F1F5F9;
+            --text-light: #94A3B8;
+            --text-lighter: #64748B;
+            --border: #334155;
+        }
 
-  --text:#07080E;
-  --text-secondary:#5F6060;
-  --text-tertiary:#9AA0AC;
-  --border:#E3E8F3;
-  --border-strong:#D3DAE8;
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-  --success:#3FA77A;
-  --success-soft:#E7F5EE;
-  --warning:#D99A3D;
-  --warning-soft:#FBF1E1;
-  --danger:#D85D68;
-  --danger-soft:#FBEBEC;
-  --info:#6184E8;
-  --info-soft:#EAF0FF;
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding-bottom: 80px;
+        }
 
-  --radius-sm:10px;
-  --radius-md:14px;
-  --radius-lg:20px;
-  --radius-full:999px;
+        /* Top Bar */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
 
-  --shadow-sm:0 1px 2px rgba(7,8,14,0.04), 0 1px 1px rgba(7,8,14,0.03);
-  --shadow-md:0 4px 12px rgba(7,8,14,0.06), 0 2px 4px rgba(7,8,14,0.03);
-  --shadow-lg:0 12px 32px rgba(7,8,14,0.10), 0 4px 10px rgba(7,8,14,0.04);
+        [data-theme="dark"] .top-bar {
+            background: rgba(30, 41, 59, 0.9);
+        }
 
-  --nav-h:64px;
-  --header-h:auto;
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-  --ease:cubic-bezier(.4,0,.2,1);
-}
+        .menu-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--bg);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
 
-*,*::before,*::after{box-sizing:border-box;}
-html,body{margin:0;padding:0;}
-body{
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  overscroll-behavior-y:none;
-  font-size:14px;
-  line-height:1.45;
-}
-h1,h2,h3,h4,h5,h6{margin:0;font-weight:700;letter-spacing:-0.01em;}
-p{margin:0;}
-button{font-family:inherit;cursor:pointer;}
-input,select,textarea{font-family:inherit;font-size:14px;}
-a{color:inherit;text-decoration:none;}
-ul{margin:0;padding:0;list-style:none;}
-svg{display:block;flex-shrink:0;}
+        .menu-btn:active {
+            transform: scale(0.95);
+        }
 
-::-webkit-scrollbar{width:6px;height:6px;}
-::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:99px;}
-::-webkit-scrollbar-track{background:transparent;}
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-:focus-visible{
-  outline:2px solid var(--primary);
-  outline-offset:2px;
-  border-radius:4px;
-}
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
 
-@media (prefers-reduced-motion: reduce){
-  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
-}
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+        }
 
-/* ---------- App shell ---------- */
-#app{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  max-width:100%;
-}
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-.app-body{
-  display:flex;
-  flex:1;
-  min-height:100vh;
-}
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: transparent;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: all 0.2s;
+        }
 
-/* ---------- Sidebar (desktop) ---------- */
-.sidebar{
-  display:none;
-  width:240px;
-  flex-shrink:0;
-  background:var(--surface);
-  border-right:1px solid var(--border);
-  padding:24px 16px;
-  flex-direction:column;
-  gap:4px;
-  position:sticky;
-  top:0;
-  height:100vh;
-  overflow-y:auto;
-}
-.sidebar-brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:4px 12px 24px;
-}
-.sidebar-brand-mark{
-  width:34px;height:34px;border-radius:10px;
-  background:var(--primary);
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-weight:800;font-size:15px;
-  flex-shrink:0;
-}
-.sidebar-brand-text{display:flex;flex-direction:column;line-height:1.2;}
-.sidebar-brand-text strong{font-size:14.5px;font-weight:700;}
-.sidebar-brand-text span{font-size:11px;color:var(--text-tertiary);}
+        .icon-btn:active {
+            transform: scale(0.95);
+            background: var(--bg);
+        }
 
-.sidebar-nav{display:flex;flex-direction:column;gap:2px;margin-top:4px;}
-.sidebar-link{
-  display:flex;align-items:center;gap:12px;
-  padding:10px 12px;border-radius:var(--radius-sm);
-  color:var(--text-secondary);font-weight:600;font-size:13.5px;
-  transition:background .15s var(--ease), color .15s var(--ease);
-}
-.sidebar-link svg{width:18px;height:18px;stroke:currentColor;}
-.sidebar-link:hover{background:var(--surface-soft);color:var(--text);}
-.sidebar-link.active{background:var(--primary-soft);color:var(--primary-dark);}
-.sidebar-section-label{
-  font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--text-tertiary);padding:16px 12px 6px;
-}
-.sidebar-footer{
-  margin-top:auto;padding-top:16px;border-top:1px solid var(--border);
-}
+        /* Sidebar Drawer */
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
 
-/* ---------- Main column ---------- */
-.main-col{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  min-width:0;
-}
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
-/* ---------- Mobile header ---------- */
-.app-header{
-  position:sticky;top:0;z-index:30;
-  background:rgba(247,248,250,0.92);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border);
-  padding:14px 16px;
-}
-.header-top{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:2px;
-}
-.header-brand{display:flex;align-items:center;gap:8px;}
-.header-brand-mark{
-  width:26px;height:26px;border-radius:7px;background:var(--primary);
-  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12px;
-}
-.header-brand-name{font-size:14.5px;font-weight:700;}
-.header-actions{display:flex;align-items:center;gap:8px;}
-.icon-btn{
-  width:34px;height:34px;border-radius:var(--radius-full);
-  background:var(--surface);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  position:relative;
-  transition:background .15s var(--ease), border-color .15s var(--ease), transform .1s var(--ease);
-}
-.icon-btn:active{transform:scale(0.94);}
-.icon-btn:hover{background:var(--surface-soft);}
-.icon-btn svg{width:16px;height:16px;stroke:var(--text-secondary);}
-.icon-btn .dot{
-  position:absolute;top:6px;right:7px;width:7px;height:7px;border-radius:50%;
-  background:var(--danger);border:1.5px solid var(--surface);
-}
-.header-greeting{font-size:19px;font-weight:800;letter-spacing:-0.015em;margin-top:8px;}
-.header-date{font-size:12.5px;color:var(--text-secondary);margin-top:1px;font-weight:500;}
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            background: var(--surface);
+            z-index: 201;
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lg);
+        }
 
-.desktop-header{
-  display:none;
-  padding:20px 32px;
-  border-bottom:1px solid var(--border);
-  align-items:center;
-  justify-content:space-between;
-  background:var(--surface);
-  position:sticky;top:0;z-index:20;
-}
+        .sidebar.active {
+            transform: translateX(0);
+        }
 
-/* ---------- Page container ---------- */
-.page{
-  padding:16px 16px calc(104px + env(safe-area-inset-bottom));
-  flex:1;
-  width:100%;
-}
-.page-inner{
-  max-width:1180px;
-  margin:0 auto;
-  width:100%;
-}
-.section{margin-bottom:24px;}
-.section:last-child{margin-bottom:0;}
-.section-head{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:12px;
-}
-.section-title{font-size:15px;font-weight:700;letter-spacing:-0.01em;}
-.section-link{
-  font-size:12.5px;font-weight:600;color:var(--primary);
-  display:flex;align-items:center;gap:2px;
-}
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--border);
+        }
 
-/* ---------- Bottom nav (mobile) ---------- */
-.bottom-nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:40;
-  background:rgba(255,255,255,0.94);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  border-top:1px solid var(--border);
-  display:flex;
-  padding:6px 4px calc(6px + env(safe-area-inset-bottom));
-}
-.nav-item{
-  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:6px 2px;border-radius:12px;color:var(--text-tertiary);
-  transition:color .15s var(--ease);
-  position:relative;
-}
-.nav-item svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;}
-.nav-item span{font-size:10.5px;font-weight:600;}
-.nav-item.active{color:var(--primary);}
-.nav-item.active svg{stroke-width:2.1;}
-.nav-item:active{transform:scale(0.95);}
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
 
-/* ---------- KPI grid ---------- */
-.kpi-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-.kpi-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:var(--radius-md);
-  padding:14px 14px 13px;
-  box-shadow:var(--shadow-sm);
-  position:relative;
-  overflow:hidden;
-}
-.kpi-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
-.kpi-icon{
-  width:30px;height:30px;border-radius:9px;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--primary-soft);
-}
-.kpi-icon svg{width:15px;height:15px;stroke:var(--primary-dark);}
-.kpi-icon.success{background:var(--success-soft);}
-.kpi-icon.success svg{stroke:var(--success);}
-.kpi-icon.warning{background:var(--warning-soft);}
-.kpi-icon.warning svg{stroke:var(--warning);}
-.kpi-icon.danger{background:var(--danger-soft);}
-.kpi-icon.danger svg{stroke:var(--danger);}
-.kpi-trend{
-  font-size:11px;font-weight:700;padding:3px 6px;border-radius:6px;
-  display:flex;align-items:center;gap:2px;
-}
-.kpi-trend.up{color:var(--success);background:var(--success-soft);}
-.kpi-trend.down{color:var(--danger);background:var(--danger-soft);}
-.kpi-value{font-size:22px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;}
-.kpi-label{font-size:12px;color:var(--text-secondary);margin-top:3px;font-weight:500;}
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg);
+            border-radius: 12px;
+        }
 
-/* ---------- Quick actions ---------- */
-.qa-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-.qa-btn{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:var(--radius-md);
-  padding:13px;
-  display:flex;align-items:center;gap:10px;
-  box-shadow:var(--shadow-sm);
-  transition:transform .1s var(--ease), border-color .15s var(--ease);
-  text-align:left;
-}
-.qa-btn:active{transform:scale(0.97);}
-.qa-btn:hover{border-color:var(--border-strong);}
-.qa-btn.primary{
-  background:var(--primary);
-  border-color:var(--primary);
-}
-.qa-icon{
-  width:32px;height:32px;border-radius:9px;background:var(--primary-soft);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.qa-icon svg{width:16px;height:16px;stroke:var(--primary-dark);}
-.qa-btn.primary .qa-icon{background:rgba(255,255,255,0.18);}
-.qa-btn.primary .qa-icon svg{stroke:#fff;}
-.qa-label{font-size:13px;font-weight:700;color:var(--text);}
-.qa-btn.primary .qa-label{color:#fff;}
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
 
-/* ---------- Appointment card ---------- */
-.appt-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:var(--radius-md);
-  padding:13px 14px;
-  display:flex;
-  gap:12px;
-  align-items:center;
-  box-shadow:var(--shadow-sm);
-  margin-bottom:8px;
-  transition:border-color .15s var(--ease);
-}
-.appt-card:last-child{margin-bottom:0;}
-.appt-card:hover{border-color:var(--border-strong);}
-.appt-time-col{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  min-width:52px;
-  padding-right:12px;border-right:1px solid var(--border);
-}
-.appt-time{font-size:13px;font-weight:700;color:var(--text);}
-.appt-meridiem{font-size:10px;color:var(--text-tertiary);font-weight:600;}
-.appt-body{flex:1;min-width:0;}
-.appt-client{font-size:13.5px;font-weight:700;color:var(--text);}
-.appt-meta{font-size:12px;color:var(--text-secondary);margin-top:2px;}
-.appt-meta span{color:var(--text-tertiary);}
-.appt-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+        .user-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
 
-/* ---------- Status pills ---------- */
-.pill{
-  display:inline-flex;align-items:center;gap:4px;
-  padding:4px 9px;border-radius:var(--radius-full);
-  font-size:10.5px;font-weight:700;letter-spacing:.01em;
-  white-space:nowrap;
-}
-.pill::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;}
-.pill-booked{background:var(--info-soft);color:var(--primary-dark);}
-.pill-confirmed{background:#EAF3FF;color:#3667C4;}
-.pill-checkedin{background:var(--warning-soft);color:#B67B1F;}
-.pill-completed{background:var(--success-soft);color:var(--success);}
-.pill-cancelled{background:var(--danger-soft);color:var(--danger);}
-.pill-noshow{background:#F1F1F3;color:#6B6D78;}
-.pill-unpaid{background:var(--danger-soft);color:var(--danger);}
-.pill-partial{background:var(--warning-soft);color:#B67B1F;}
-.pill-paid{background:var(--success-soft);color:var(--success);}
-.pill-refunded{background:#F1F1F3;color:#6B6D78;}
-.pill-active{background:var(--success-soft);color:var(--success);}
-.pill-inactive{background:#F1F1F3;color:#6B6D78;}
+        .user-info p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
 
-/* ---------- Cards (generic) ---------- */
-.card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:var(--radius-md);
-  box-shadow:var(--shadow-sm);
-  padding:16px;
-}
-.card-title{font-size:13.5px;font-weight:700;margin-bottom:2px;}
-.card-sub{font-size:11.5px;color:var(--text-secondary);}
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
 
-/* ---------- Performance / goal card ---------- */
-.goal-card{
-  display:flex;align-items:center;gap:16px;
-}
-.goal-ring-wrap{position:relative;width:84px;height:84px;flex-shrink:0;}
-.goal-ring-wrap svg{transform:rotate(-90deg);}
-.goal-ring-track{fill:none;stroke:var(--surface-soft);stroke-width:8;}
-.goal-ring-fill{fill:none;stroke:var(--primary);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset .6s var(--ease);}
-.goal-ring-label{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-size:17px;font-weight:800;letter-spacing:-0.02em;
-}
-.goal-info{flex:1;}
-.goal-title{font-size:12.5px;color:var(--text-secondary);font-weight:600;margin-bottom:4px;}
-.goal-value{font-size:18px;font-weight:800;letter-spacing:-0.01em;}
-.goal-value span{font-size:12.5px;color:var(--text-tertiary);font-weight:600;}
+        .nav-section {
+            margin-bottom: 24px;
+        }
 
-/* ---------- Chart ---------- */
-.chart-wrap{width:100%;overflow:hidden;}
-.chart-legend{display:flex;gap:16px;margin-top:10px;}
-.chart-legend-item{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text-secondary);font-weight:600;}
-.chart-legend-dot{width:8px;height:8px;border-radius:2px;background:var(--primary);}
+        .nav-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-lighter);
+            padding: 0 12px 8px;
+        }
 
-/* ---------- Ranking bars ---------- */
-.rank-row{display:flex;align-items:center;gap:10px;padding:8px 0;}
-.rank-row:not(:last-child){border-bottom:1px solid var(--border);}
-.rank-label{font-size:12.5px;font-weight:600;width:96px;flex-shrink:0;color:var(--text);}
-.rank-bar-track{flex:1;height:7px;border-radius:99px;background:var(--surface-soft);overflow:hidden;}
-.rank-bar-fill{height:100%;border-radius:99px;background:var(--primary);}
-.rank-value{font-size:12.5px;font-weight:700;width:28px;text-align:right;color:var(--text-secondary);}
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
 
-/* ---------- Alert card ---------- */
-.alert-row{
-  display:flex;align-items:center;gap:12px;padding:10px 0;
-}
-.alert-row:not(:last-child){border-bottom:1px solid var(--border);}
-.alert-icon{
-  width:34px;height:34px;border-radius:9px;background:var(--warning-soft);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.alert-icon svg{width:16px;height:16px;stroke:var(--warning);}
-.alert-body{flex:1;min-width:0;}
-.alert-title{font-size:12.5px;font-weight:700;}
-.alert-sub{font-size:11.5px;color:var(--text-secondary);margin-top:1px;}
-.alert-value{font-size:12.5px;font-weight:700;color:var(--warning);}
+        .nav-item:active {
+            transform: scale(0.98);
+        }
 
-/* ---------- Buttons ---------- */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  padding:11px 18px;border-radius:var(--radius-sm);
-  font-size:13.5px;font-weight:700;border:1px solid transparent;
-  transition:transform .1s var(--ease), background .15s var(--ease), border-color .15s var(--ease);
-  white-space:nowrap;
-}
-.btn:active{transform:scale(0.97);}
-.btn-primary{background:var(--primary);color:#fff;}
-.btn-primary:hover{background:var(--primary-dark);}
-.btn-secondary{background:var(--surface);color:var(--text);border-color:var(--border);}
-.btn-secondary:hover{background:var(--surface-soft);}
-.btn-ghost{background:transparent;color:var(--text-secondary);}
-.btn-ghost:hover{background:var(--surface-soft);}
-.btn-danger{background:var(--danger);color:#fff;}
-.btn-danger:hover{background:#C24C57;}
-.btn-block{width:100%;}
-.btn-sm{padding:7px 12px;font-size:12.5px;border-radius:8px;}
-.btn svg{width:15px;height:15px;stroke:currentColor;}
-.btn-icon-only{padding:9px;}
+        .nav-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
 
-.fab{
-  position:fixed;
-  right:16px;
-  bottom:calc(var(--nav-h) + 16px + env(safe-area-inset-bottom));
-  z-index:35;
-  width:52px;height:52px;border-radius:16px;
-  background:var(--primary);color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 8px 20px rgba(97,132,232,0.38);
-  transition:transform .15s var(--ease);
-}
-.fab:active{transform:scale(0.93);}
-.fab svg{width:22px;height:22px;stroke:#fff;stroke-width:2.2;}
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+        }
 
-/* ---------- Forms ---------- */
-.field{margin-bottom:14px;}
-.field:last-child{margin-bottom:0;}
-.field-label{
-  display:block;font-size:12px;font-weight:700;color:var(--text-secondary);
-  margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em;
-}
-.field-input,.field-select,.field-textarea{
-  width:100%;padding:11px 12px;border-radius:var(--radius-sm);
-  border:1px solid var(--border);background:var(--surface-soft);
-  font-size:14px;color:var(--text);
-  transition:border-color .15s var(--ease), background .15s var(--ease);
-}
-.field-input:focus,.field-select:focus,.field-textarea:focus{
-  outline:none;border-color:var(--primary);background:var(--surface);
-}
-.field-textarea{resize:vertical;min-height:70px;}
-.field-hint{font-size:11.5px;color:var(--text-tertiary);margin-top:5px;}
-.field-error{font-size:11.5px;color:var(--danger);margin-top:5px;font-weight:600;}
-.field-row{display:flex;gap:10px;}
-.field-row .field{flex:1;}
-.field-select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235F6060' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
-.checkbox-row{display:flex;align-items:center;gap:9px;}
-.checkbox-row input[type=checkbox]{width:18px;height:18px;accent-color:var(--primary);}
+        /* Main Content */
+        .main-content {
+            padding: 20px;
+        }
 
-.search-wrap{position:relative;}
-.search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--text-tertiary);}
-.search-input{padding-left:36px;}
+        .page-header {
+            margin-bottom: 24px;
+        }
 
-.stepper-track{display:flex;gap:6px;margin-bottom:18px;}
-.stepper-dot{flex:1;height:4px;border-radius:99px;background:var(--border);}
-.stepper-dot.done,.stepper-dot.current{background:var(--primary);}
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
 
-.select-list{display:flex;flex-direction:column;gap:8px;}
-.select-item{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 13px;border-radius:var(--radius-sm);
-  border:1.5px solid var(--border);background:var(--surface);
-  transition:border-color .15s var(--ease), background .15s var(--ease);
-}
-.select-item.picked{border-color:var(--primary);background:var(--primary-soft);}
-.select-item-title{font-size:13.5px;font-weight:700;}
-.select-item-sub{font-size:11.5px;color:var(--text-secondary);margin-top:1px;}
-.select-item-price{font-size:13px;font-weight:700;color:var(--text);}
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-light);
+        }
 
-/* ---------- Modal / Bottom sheet ---------- */
-.overlay{
-  position:fixed;inset:0;background:rgba(7,8,14,0.44);
-  z-index:100;opacity:0;pointer-events:none;
-  transition:opacity .2s var(--ease);
-  display:flex;align-items:flex-end;justify-content:center;
-}
-.overlay.open{opacity:1;pointer-events:auto;}
-@media (min-width:768px){.overlay{align-items:center;}}
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+        }
 
-.sheet{
-  background:var(--surface);
-  width:100%;max-width:560px;
-  border-radius:20px 20px 0 0;
-  max-height:88vh;
-  display:flex;flex-direction:column;
-  transform:translateY(100%);
-  transition:transform .28s var(--ease);
-}
-.overlay.open .sheet{transform:translateY(0);}
-@media (min-width:768px){
-  .sheet{border-radius:20px;max-height:85vh;transform:translateY(16px) scale(0.98);opacity:0;}
-  .overlay.open .sheet{transform:translateY(0) scale(1);opacity:1;transition:transform .22s var(--ease), opacity .22s var(--ease);}
-}
-.sheet-handle{width:36px;height:4px;border-radius:99px;background:var(--border-strong);margin:10px auto 0;flex-shrink:0;}
-@media (min-width:768px){.sheet-handle{display:none;}}
-.sheet-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 18px 12px;border-bottom:1px solid var(--border);flex-shrink:0;
-}
-.sheet-title{font-size:15.5px;font-weight:800;}
-.sheet-body{padding:18px;overflow-y:auto;flex:1;}
-.sheet-footer{
-  padding:14px 18px calc(14px + env(safe-area-inset-bottom));
-  border-top:1px solid var(--border);flex-shrink:0;
-  display:flex;gap:10px;
-}
-.sheet-footer .btn{flex:1;}
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
 
-.modal-sm .sheet{max-width:400px;border-radius:20px;}
-.modal-sm{align-items:center;}
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+        }
 
-/* ---------- Toast ---------- */
-.toast-stack{
-  position:fixed;top:16px;left:50%;transform:translateX(-50%);
-  z-index:200;display:flex;flex-direction:column;gap:8px;
-  width:calc(100% - 32px);max-width:380px;
-  pointer-events:none;
-}
-.toast{
-  background:var(--text);color:#fff;
-  padding:12px 14px;border-radius:12px;
-  display:flex;align-items:center;gap:9px;
-  font-size:13px;font-weight:600;
-  box-shadow:var(--shadow-lg);
-  opacity:0;transform:translateY(-10px);
-  transition:opacity .22s var(--ease), transform .22s var(--ease);
-}
-.toast.show{opacity:1;transform:translateY(0);}
-.toast-icon{width:18px;height:18px;flex-shrink:0;stroke:#fff;}
-.toast.error{background:var(--danger);}
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
 
-/* ---------- Lists / rows ---------- */
-.list-row{
-  display:flex;align-items:center;gap:12px;
-  padding:13px 4px;
-}
-.list-row:not(:last-child){border-bottom:1px solid var(--border);}
-.list-row-icon{
-  width:36px;height:36px;border-radius:10px;background:var(--surface-soft);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.list-row-icon svg{width:17px;height:17px;stroke:var(--text-secondary);}
-.list-row-body{flex:1;min-width:0;}
-.list-row-title{font-size:13.5px;font-weight:700;}
-.list-row-sub{font-size:11.5px;color:var(--text-secondary);margin-top:1px;}
-.list-row-chevron svg{width:16px;height:16px;stroke:var(--text-tertiary);}
+        .stat-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
 
-/* ---------- Client card ---------- */
-.client-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius-md);padding:14px;box-shadow:var(--shadow-sm);
-  margin-bottom:10px;
-}
-.client-card:last-child{margin-bottom:0;}
-.client-top{display:flex;align-items:center;gap:11px;}
-.client-avatar{
-  width:42px;height:42px;border-radius:50%;background:var(--primary-soft);color:var(--primary-dark);
-  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;
-}
-.client-name{font-size:14px;font-weight:700;}
-.client-phone{font-size:12px;color:var(--text-secondary);margin-top:1px;}
-.client-stats{display:flex;gap:0;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
-.client-stat{flex:1;}
-.client-stat-label{font-size:10.5px;color:var(--text-tertiary);font-weight:600;text-transform:uppercase;letter-spacing:.03em;}
-.client-stat-value{font-size:13px;font-weight:700;margin-top:2px;}
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            transform: translate(40%, -40%);
+            opacity: 0.5;
+        }
 
-/* ---------- Service / product card ---------- */
-.svc-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius-md);padding:14px;box-shadow:var(--shadow-sm);
-  margin-bottom:10px;
-}
-.svc-card:last-child{margin-bottom:0;}
-.svc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
-.svc-name{font-size:14px;font-weight:700;}
-.svc-cat{font-size:11px;color:var(--primary-dark);font-weight:600;margin-top:2px;}
-.svc-price{font-size:15px;font-weight:800;white-space:nowrap;}
-.svc-desc{font-size:12px;color:var(--text-secondary);margin-top:8px;line-height:1.5;}
-.svc-meta{display:flex;gap:14px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
-.svc-meta-item{font-size:11.5px;color:var(--text-secondary);display:flex;align-items:center;gap:5px;}
-.svc-meta-item svg{width:13px;height:13px;stroke:var(--text-tertiary);}
-.svc-actions{display:flex;gap:8px;margin-top:10px;}
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
 
-/* ---------- Inventory ---------- */
-.inv-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius-md);padding:14px;box-shadow:var(--shadow-sm);
-  margin-bottom:10px;
-}
-.inv-card:last-child{margin-bottom:0;}
-.inv-top{display:flex;justify-content:space-between;align-items:flex-start;}
-.inv-name{font-size:14px;font-weight:700;}
-.inv-sku{font-size:11px;color:var(--text-tertiary);margin-top:1px;}
-.inv-stock-bar{height:6px;border-radius:99px;background:var(--surface-soft);margin-top:10px;overflow:hidden;}
-.inv-stock-fill{height:100%;border-radius:99px;background:var(--success);}
-.inv-stock-fill.low{background:var(--danger);}
-.inv-stock-fill.mid{background:var(--warning);}
-.inv-stock-labels{display:flex;justify-content:space-between;margin-top:6px;}
-.inv-stock-labels span{font-size:11px;color:var(--text-secondary);font-weight:600;}
+        .stat-value {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 1;
+        }
 
-/* ---------- Empty state ---------- */
-.empty-state{
-  text-align:center;padding:48px 20px;
-}
-.empty-icon{
-  width:56px;height:56px;border-radius:16px;background:var(--surface-soft);
-  display:flex;align-items:center;justify-content:center;margin:0 auto 14px;
-}
-.empty-icon svg{width:26px;height:26px;stroke:var(--text-tertiary);}
-.empty-title{font-size:14px;font-weight:700;}
-.empty-sub{font-size:12.5px;color:var(--text-secondary);margin-top:4px;max-width:260px;margin-left:auto;margin-right:auto;}
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
 
-/* ---------- Tabs ---------- */
-.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;-ms-overflow-style:none;scrollbar-width:none;}
-.tabs::-webkit-scrollbar{display:none;}
-.tab-btn{
-  padding:8px 14px;border-radius:var(--radius-full);border:1px solid var(--border);
-  background:var(--surface);font-size:12.5px;font-weight:700;color:var(--text-secondary);
-  white-space:nowrap;flex-shrink:0;transition:all .15s var(--ease);
-}
-.tab-btn.active{background:var(--text);color:#fff;border-color:var(--text);}
+        /* List Items */
+        .list-item {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
 
-/* ---------- Timeline (calendar) ---------- */
-.timeline{position:relative;padding-left:52px;}
-.timeline-hour{
-  position:relative;min-height:64px;border-top:1px solid var(--border);padding:6px 0;
-}
-.timeline-hour-label{
-  position:absolute;left:-52px;top:-8px;width:44px;text-align:right;
-  font-size:11px;color:var(--text-tertiary);font-weight:600;
-}
-.timeline-event{
-  background:var(--primary-soft);border-left:3px solid var(--primary);
-  border-radius:8px;padding:8px 10px;margin:2px 0;
-}
-.timeline-event-title{font-size:12.5px;font-weight:700;color:var(--text);}
-.timeline-event-sub{font-size:11px;color:var(--text-secondary);margin-top:1px;}
+        .item-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
 
-/* ---------- Table (desktop) ---------- */
-.data-table{width:100%;border-collapse:collapse;}
-.data-table th{
-  text-align:left;font-size:11px;font-weight:700;color:var(--text-tertiary);
-  text-transform:uppercase;letter-spacing:.04em;padding:10px 14px;border-bottom:1px solid var(--border);
-}
-.data-table td{padding:13px 14px;border-bottom:1px solid var(--border);font-size:13px;}
-.data-table tr:last-child td{border-bottom:none;}
-.data-table tr:hover td{background:var(--surface-soft);}
+        .item-content {
+            flex: 1;
+            min-width: 0;
+        }
 
-/* ---------- Utility ---------- */
-.hide-mobile{display:none;}
-.hide-desktop{display:block;}
-.text-secondary{color:var(--text-secondary);}
-.text-success{color:var(--success);}
-.text-danger{color:var(--danger);}
-.mt-8{margin-top:8px;}
-.flex-between{display:flex;align-items:center;justify-content:space-between;}
-.badge-count{
-  background:var(--danger);color:#fff;font-size:10px;font-weight:700;
-  min-width:16px;height:16px;border-radius:99px;display:flex;align-items:center;justify-content:center;
-  position:absolute;top:-2px;right:-2px;padding:0 4px;
-}
+        .item-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
+        .item-subtitle {
+            font-size: 13px;
+            color: var(--text-light);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
-/* ---------- Responsive / theme additions ---------- */
-body.theme-dark{
-  --bg:#0F1117;--surface:#171A22;--surface-soft:#20242E;
-  --text:#F5F7FB;--text-secondary:#B3B8C5;--text-tertiary:#7F8797;
-  --border:#2B303C;--border-strong:#3A4150;
-  --primary-soft:#1E2A4A;--success-soft:#183429;--warning-soft:#382C18;--danger-soft:#3A2024;--info-soft:#1E2A4A;
-  color-scheme:dark;
-}
-body.theme-dark .app-header{background:rgba(15,17,23,.92);}
-body.theme-dark .bottom-nav{background:rgba(23,26,34,.96);}
-.bottom-nav{min-height:64px;padding-bottom:max(6px,env(safe-area-inset-bottom));}
-@media(max-width:1023px){
-  .app-body{min-height:100dvh;}
-  .main-col{min-height:100dvh;}
-  .page{padding-left:12px;padding-right:12px;}
-  .section-head{gap:10px;align-items:flex-start;}
-  .section-head>.btn{flex-shrink:0;}
-  .btn{min-height:40px;}
-  .card{padding:14px;}
-  .data-table{min-width:650px;}
-  .calendar-grid{grid-template-columns:repeat(7,minmax(82px,1fr));overflow-x:auto;}
-}
-.view-tabs{display:flex;gap:6px;background:var(--surface-soft);padding:4px;border-radius:12px;overflow:auto;}
-.view-tab{border:0;background:transparent;padding:8px 12px;border-radius:9px;font-size:12px;font-weight:700;color:var(--text-secondary);white-space:nowrap;}
-.view-tab.active{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm);}
-.calendar-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:var(--surface);}
-.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);min-width:700px;}
-.calendar-head{padding:10px;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;color:var(--text-secondary);text-align:center;}
-.calendar-cell{min-height:108px;padding:8px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
-.calendar-cell:nth-child(7n){border-right:0;}
-.calendar-day{font-size:12px;font-weight:800;margin-bottom:6px;}
-.calendar-day.muted{color:var(--text-tertiary);}
-.calendar-appt{font-size:10px;padding:5px 6px;border-radius:7px;background:var(--primary-soft);color:var(--primary-dark);margin-top:4px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-.schedule-grid{display:grid;gap:8px;}
-.schedule-hour{display:grid;grid-template-columns:64px 1fr;min-height:58px;border-top:1px solid var(--border);}
-.schedule-hour-label{font-size:10px;color:var(--text-tertiary);padding:8px 6px 0 0;text-align:right;}
-.schedule-slot{padding:6px 0;}
-.schedule-event{background:var(--primary-soft);border-left:3px solid var(--primary);border-radius:8px;padding:7px 9px;font-size:11px;margin-bottom:5px;}
-.chart-card{min-height:280px;}
-.chart{display:flex;align-items:flex-end;gap:8px;height:190px;padding:20px 4px 0;border-bottom:1px solid var(--border);}
-.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:18px;}
-.bar{width:100%;max-width:34px;background:var(--primary);border-radius:6px 6px 0 0;min-height:2px;}
-.bar-label{font-size:9px;color:var(--text-tertiary);margin-top:6px;}
-.bar-value{font-size:9px;color:var(--text-secondary);margin-bottom:4px;white-space:nowrap;}
-.donut-wrap{display:flex;align-items:center;gap:20px;}
-.donut{width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--primary) 0 35%,var(--success) 35% 62%,var(--warning) 62% 82%,var(--danger) 82% 100%);position:relative;flex-shrink:0;}
-.donut:after{content:'';position:absolute;inset:28px;border-radius:50%;background:var(--surface);}
-.legend{display:grid;gap:8px;}
-.legend-row{display:flex;align-items:center;gap:7px;font-size:11px;}
-.legend-dot{width:9px;height:9px;border-radius:50%;background:var(--primary);}
-.analytics-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;}
-@media(max-width:767px){.analytics-grid{grid-template-columns:1fr;}.donut-wrap{justify-content:center;}.section-title{font-size:14px;}}
+        .item-action {
+            flex-shrink: 0;
+        }
 
-/* ============================================================
-   RESPONSIVE BREAKPOINTS
-   ============================================================ */
-@media (min-width:480px){
-  .kpi-grid{gap:12px;}
-}
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
 
-@media (min-width:768px){
-  .page{padding:24px 24px 96px;}
-  .kpi-grid{gap:14px;}
-  .qa-grid{grid-template-columns:repeat(4,1fr);}
-}
+        .badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
 
-@media (min-width:1024px){
-  .sidebar{display:flex;}
-  .bottom-nav{display:none;}
-  .fab{display:none;}
-  .app-header{display:none;}
-  .desktop-header{display:flex;}
-  .page{padding:28px 32px 40px;}
-  .kpi-grid{grid-template-columns:repeat(4,1fr);}
-  .hide-mobile{display:block;}
-  .hide-desktop{display:none;}
-  .two-col{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:start;}
-  .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start;}
-}
+        .badge-primary { background: var(--primary-light); color: var(--primary); }
+        .badge-primary::before { background: var(--primary); }
+        .badge-success { background: #D1FAE5; color: #059669; }
+        .badge-success::before { background: #059669; }
+        .badge-warning { background: #FEF3C7; color: #D97706; }
+        .badge-warning::before { background: #D97706; }
+        .badge-danger { background: #FEE2E2; color: #DC2626; }
+        .badge-danger::before { background: #DC2626; }
 
-@media (min-width:1440px){
-  .page-inner{max-width:1280px;}
-}
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
 
-@media(max-width:1023px){
-  .bottom-nav{display:flex !important;position:fixed !important;bottom:0 !important;left:0 !important;right:0 !important;z-index:9999 !important;visibility:visible !important;opacity:1 !important;}
-  .page{padding-bottom:calc(118px + env(safe-area-inset-bottom)) !important;}
-  .main-col{padding-bottom:0 !important;}
-}
-.complete-btn{border:0;background:var(--success);color:#fff;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:800;cursor:pointer;animation:pulseComplete 1.8s ease-in-out infinite;}
-.complete-btn:active{transform:scale(.96);}
-.appointment-done{opacity:.88;}
-.danger-zone{border:1px solid var(--danger) !important;background:var(--danger-soft);}
-.btn-danger{background:var(--danger);color:#fff;border:0;}
-@keyframes pulseComplete{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.15)}50%{box-shadow:0 0 0 5px rgba(34,197,94,.08)}}
-</style>
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+
+        /* FAB */
+        .fab {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 50;
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 8px 8px 20px;
+            z-index: 100;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px;
+            border-radius: 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-btn.active {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 300;
+            display: flex;
+            align-items: flex-end;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--surface);
+            border-radius: 24px 24px 0 0;
+            width: 100%;
+            max-height: 90vh;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-handle {
+            width: 40px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin: 12px auto;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--surface);
+        }
+
+        textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: var(--shadow-lg);
+            z-index: 400;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transition: all 0.3s;
+            max-width: calc(100% - 40px);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .toast-success .toast-icon {
+            background: #D1FAE5;
+            color: #059669;
+        }
+
+        .toast-message {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+            margin: 0 -20px;
+            padding: 0 20px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th {
+            text-align: left;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-lighter);
+            text-transform: uppercase;
+            padding: 12px 8px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .table td {
+            padding: 12px 8px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px;
+            background: var(--bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty-icon svg {
+            width: 40px;
+            height: 40px;
+            color: var(--text-lighter);
+        }
+
+        .empty-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* View Management */
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        /* Charts */
+        .chart {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            padding: 20px 0;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--primary);
+            border-radius: 8px 8px 0 0;
+            min-height: 20px;
+            position: relative;
+        }
+
+        .chart-label {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+
+        /* Desktop Styles */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 1200px;
+                padding: 20px;
+                padding-bottom: 20px;
+            }
+
+            .top-bar {
+                padding: 16px 24px;
+            }
+
+            .main-content {
+                padding: 24px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+            }
+
+            .bottom-nav {
+                display: none;
+            }
+
+            .fab {
+                display: none;
+            }
+
+            .sidebar {
+                position: static;
+                transform: translateX(0);
+                width: 280px;
+                box-shadow: none;
+                border-right: 1px solid var(--border);
+            }
+
+            .sidebar-overlay {
+                display: none;
+            }
+
+            .menu-btn {
+                display: none;
+            }
+
+            .app-layout {
+                display: flex;
+            }
+
+            .main-wrapper {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .modal-overlay {
+                align-items: center;
+                justify-content: center;
+            }
+
+            .modal {
+                max-width: 500px;
+                border-radius: 24px;
+                max-height: 80vh;
+            }
+
+            .modal-handle {
+                display: none;
+            }
+
+            .grid-2 {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-<div id="app"></div>
-<div class="toast-stack" id="toastStack"></div>
-<div class="overlay" id="overlayRoot"></div>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <button class="menu-btn" id="menuBtn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+            <div class="logo">
+                <div class="logo-icon">D</div>
+                <div class="logo-text">Devina's Salon</div>
+            </div>
+        </div>
+        <div class="top-bar-right">
+            <button class="icon-btn" id="themeToggle">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
 
-<script>
-'use strict';
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="logo-icon">D</div>
+                    <div class="logo-text">Devina's Salon</div>
+                </div>
+                <div class="sidebar-user">
+                    <div class="user-avatar">AD</div>
+                    <div class="user-info">
+                        <h4>Admin User</h4>
+                        <p>admin@devina.com</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-title">Main</div>
+                    <div class="nav-item active" data-view="dashboard">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        </svg>
+                        Dashboard
+                    </div>
+                    <div class="nav-item" data-view="appointments">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        Appointments
+                    </div>
+                    <div class="nav-item" data-view="clients">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                        Clients
+                    </div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-title">Business</div>
+                    <div class="nav-item" data-view="sales">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Sales
+                    </div>
+                    <div class="nav-item" data-view="purchases">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        Purchases
+                    </div>
+                    <div class="nav-item" data-view="services">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                        Services
+                    </div>
+                    <div class="nav-item" data-view="reports">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        Reports
+                    </div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-title">System</div>
+                    <div class="nav-item" data-view="settings">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        Settings
+                    </div>
+                </div>
+            </nav>
+        </aside>
 
-const ICONS = {
-  home:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-6h5v6"/></svg>',
-  calendar:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
-  users:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.3"/><path d="M2.8 20c.7-3.5 3.2-5.5 6.2-5.5s5.5 2 6.2 5.5"/><circle cx="17.5" cy="8.5" r="2.6"/><path d="M15.8 14.7c2.4.4 4.1 2.1 4.7 5.3"/></svg>',
-  sales:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7" width="17" height="13" rx="2.2"/><path d="M8 7V5.5a4 4 0 0 1 8 0V7M3.5 11.5h17"/></svg>',
-  more:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>',
-  bell:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5a6 6 0 1 1 12 0c0 5 1.6 6.2 1.6 6.2H4.4S6 14.5 6 9.5Z"/><path d="M10 19a2.2 2.2 0 0 0 4 0"/></svg>',
-  search:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.4-3.4"/></svg>',
-  plus:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
-  x:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
-  dollar:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.5v19M16.5 6.8c0-1.8-2-2.9-4.5-2.9-2.8 0-5 1.3-5 3.5 0 4.8 9.5 2.3 9.5 7.1 0 2.2-2.3 3.5-5 3.5-2.5 0-4.5-1.1-4.5-2.9"/></svg>',
-  clock:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',
-  check:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>',
-  checkCircle:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.2 2.2L16 9.5"/></svg>',
-  edit:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4.2L19 9.2a2.4 2.4 0 0 0-3.4-3.4L5 16.6V20Z"/><path d="M13.5 7.3l3.4 3.4"/></svg>',
-  trash:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M5 7h14M9.5 7V5a1.5 1.5 0 0 1 1.5-1.5h2A1.5 1.5 0 0 1 14.5 5v2M6.5 7 7.3 19a2 2 0 0 0 2 1.9h5.4a2 2 0 0 0 2-1.9L17.5 7M10.2 11v6M13.8 11v6"/></svg>',
-  filter:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>',
-  settings:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.5 12a7.5 7.5 0 0 0-.1-1.3l2-1.5-2-3.4-2.3.9a7.6 7.6 0 0 0-2.3-1.3L14.3 3H9.7l-.5 2.4a7.6 7.6 0 0 0-2.3 1.3l-2.3-.9-2 3.4 2 1.5a7.5 7.5 0 0 0 0 2.6l-2 1.5 2 3.4 2.3-.9c.7.6 1.5 1 2.3 1.3l.5 2.4h4.6l.5-2.4c.8-.3 1.6-.7 2.3-1.3l2.3.9 2-3.4-2-1.5c.1-.4.1-.9.1-1.3Z"/></svg>',
-  box:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8 12 3.5 20.5 8 12 12.5 3.5 8Z"/><path d="M3.5 8v8.5L12 21l8.5-4.5V8M12 12.5V21"/></svg>',
-  chart:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M11 20V4M18 20v-7M2.5 20h19"/></svg>',
-  wallet:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 7.5A2 2 0 0 1 5.5 5.5h11a2 2 0 0 1 2 2V8H5.5a2 2 0 0 1-2-2Z"/><path d="M3.5 8v9.5a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2H6"/><circle cx="16.5" cy="14" r="1.3"/></svg>',
-  scissors:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="2.3"/><circle cx="6.5" cy="17.5" r="2.3"/><path d="M8.3 8.1 20 19M20 5 8.3 15.9"/></svg>',
-  staff:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="7.5" r="3.7"/><path d="M4.5 20c1-4.2 3.9-6.5 7.5-6.5s6.5 2.3 7.5 6.5"/></svg>',
-  alertTriangle:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M10.6 4.3 2.9 18a2 2 0 0 0 1.7 3h14.8a2 2 0 0 0 1.7-3L13.4 4.3a2 2 0 0 0-3.5 0Z"/><path d="M12 10v4"/></svg>',
-  chevronRight:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="m9 5 7 7-7 7"/></svg>',
-  phone:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M6.6 3.5h2.7l1.4 4.4-2 1.6a13 13 0 0 0 6 6l1.6-2 4.4 1.4v2.7c0 1.2-1 2.1-2.2 2C10.5 19 5 13.5 4.6 5.7c-.1-1.2.8-2.2 2-2.2Z"/></svg>'
-};
-const icon=n=>ICONS[n]||'';
-const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(n)||0);
-const uid=p=>`${p}_${Date.now().toString(36)}${Math.random().toString(36).slice(2,8)}`;
-const nowISO=()=>new Date().toISOString();
-const pad2=n=>String(n).padStart(2,'0');
-const todayStr=()=>{const d=new Date();return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`};
-const DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-const MONTH_SHORT=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const formatDateReadable=d=>{if(!d)return'';const [y,m,day]=d.split('-').map(Number);const x=new Date(y,m-1,day);return `${DAY_NAMES[x.getDay()]}, ${MONTH_SHORT[m-1]} ${day}`};
-const formatDateShort=d=>{if(!d)return'';const [y,m,day]=d.split('-').map(Number);return `${MONTH_SHORT[m-1]} ${day}, ${y}`};
-const formatTime12=t=>{if(!t)return'';let[h,m]=t.split(':').map(Number);const mer=h>=12?'PM':'AM';h=h%12||12;return `${h}:${pad2(m)} ${mer}`};
-const initials=n=>(n||'?').trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();
-const escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const addDays=(d,n)=>{const [y,m,day]=d.split('-').map(Number);const x=new Date(y,m-1,day);x.setDate(x.getDate()+n);return `${x.getFullYear()}-${pad2(x.getMonth()+1)}-${pad2(x.getDate())}`};
-const startOfMonth=d=>{const [y,m]=d.split('-').map(Number);return `${y}-${pad2(m)}-01`};
-const startOfWeek=d=>{const [y,m,day]=d.split('-').map(Number);const x=new Date(y,m-1,day);x.setDate(x.getDate()-x.getDay());return `${x.getFullYear()}-${pad2(x.getMonth()+1)}-${pad2(x.getDate())}`};
-const endOfMonth=d=>addDays(addDays(startOfMonth(d),32).slice(0,8)+'-01',-1);
-const daysInMonth=d=>{const [y,m]=d.split('-').map(Number);return new Date(y,m,0).getDate();};
-const STORAGE_KEYS={settings:'devina_salon_settings',customers:'devina_salon_customers',appointments:'devina_salon_appointments',services:'devina_salon_services',sales:'devina_salon_sales',theme:'devina_salon_theme'};
-const Repository={
- getData(k){try{const r=localStorage.getItem(k);return r?JSON.parse(r):null}catch(e){return null}},
- setData(k,d){try{localStorage.setItem(k,JSON.stringify(d));return true}catch(e){return false}},
- getList(k){const d=this.getData(k);return Array.isArray(d)?d:[]},
- addItem(k,item){const list=this.getList(k);const r=Object.assign({id:uid(k),createdAt:nowISO(),updatedAt:nowISO()},item);list.push(r);this.setData(k,list);return r},
- updateItem(k,id,u){const l=this.getList(k),i=l.findIndex(x=>x.id===id);if(i<0)return null;l[i]=Object.assign({},l[i],u,{updatedAt:nowISO()});this.setData(k,l);return l[i]},
- deleteItem(k,id){const l=this.getList(k),n=l.filter(x=>x.id!==id);this.setData(k,n);return n.length!==l.length},
- findItem(k,id){return this.getList(k).find(x=>x.id===id)||null}
-};
-const SettingsService={
- DEFAULTS:{salonName:"Devina's Salon",tagline:"Where Beauty Meets Elegance",phone:"+1 (516) 508-1200",address:"1305 Middle Country Rd Suite 10, Selden, NY 11784, United States",currency:"USD",dateFormat:"MMM D, YYYY",timeFormat:"12h",hours:{Monday:{open:'10:00',close:'18:00',closed:false},Tuesday:{open:'10:00',close:'18:00',closed:false},Wednesday:{open:'10:00',close:'18:00',closed:false},Thursday:{open:'10:00',close:'19:00',closed:false},Friday:{open:'10:00',close:'19:00',closed:false},Saturday:{open:'10:00',close:'18:00',closed:false},Sunday:{open:'',close:'',closed:true}}},
- get(){const s=Repository.getData(STORAGE_KEYS.settings)||{};return Object.assign({},this.DEFAULTS,s,{hours:Object.assign({},this.DEFAULTS.hours,s.hours||{})})}
-};
-const CustomerService={list(){return Repository.getList(STORAGE_KEYS.customers).sort((a,b)=>(a.name||'').localeCompare(b.name||''))},get:id=>Repository.findItem(STORAGE_KEYS.customers,id),create:d=>Repository.addItem(STORAGE_KEYS.customers,d),update:(id,u)=>Repository.updateItem(STORAGE_KEYS.customers,id,u),remove:id=>Repository.deleteItem(STORAGE_KEYS.customers,id)};
-const ServiceCatalog={list({includeArchived=false}={}){const l=Repository.getList(STORAGE_KEYS.services);return(includeArchived?l:l.filter(s=>s.active!==false)).sort((a,b)=>(a.name||'').localeCompare(b.name||''))},get:id=>Repository.findItem(STORAGE_KEYS.services,id),create:d=>Repository.addItem(STORAGE_KEYS.services,Object.assign({active:true},d)),update:(id,u)=>Repository.updateItem(STORAGE_KEYS.services,id,u)};
-const AppointmentService={list:()=>Repository.getList(STORAGE_KEYS.appointments),get:id=>Repository.findItem(STORAGE_KEYS.appointments,id),create:d=>Repository.addItem(STORAGE_KEYS.appointments,Object.assign({status:'booked',paymentStatus:'unpaid'},d)),update:(id,u)=>Repository.updateItem(STORAGE_KEYS.appointments,id,u),remove:id=>Repository.deleteItem(STORAGE_KEYS.appointments,id),forDate:d=>Repository.getList(STORAGE_KEYS.appointments).filter(x=>x.date===d).sort((a,b)=>(a.startTime||'').localeCompare(b.startTime||''))};
-const SalesService={list:()=>Repository.getList(STORAGE_KEYS.sales),get:id=>Repository.findItem(STORAGE_KEYS.sales,id),create:d=>Repository.addItem(STORAGE_KEYS.sales,Object.assign({status:'paid',date:todayStr()},d)),update:(id,u)=>Repository.updateItem(STORAGE_KEYS.sales,id,u),remove:id=>Repository.deleteItem(STORAGE_KEYS.sales,id)};
-const seed=()=>{
- if(!Repository.getData(STORAGE_KEYS.settings)) Repository.setData(STORAGE_KEYS.settings,SettingsService.DEFAULTS);
- if(!Repository.getList(STORAGE_KEYS.services).length){
-  [['Haircut',45,45],['Blow Dry',35,45],['Hair Color',120,120],['Highlights',160,150],['Manicure',35,45],['Pedicure',45,60]].forEach(([name,price,duration])=>ServiceCatalog.create({name,price,duration,category:'Salon',description:''}));
- }
-};
-const customerName=id=>CustomerService.get(id)?.name||'Walk-in';
-const serviceName=id=>ServiceCatalog.get(id)?.name||'Service';
-const statusPill=s=>`<span class="pill pill-${String(s||'booked').replace('_','')}">${String(s||'booked').replace('_',' ')}</span>`;
-const appointmentSort=(a,b)=>(a.date+a.startTime).localeCompare(b.date+b.startTime);
-const monthDates=month=>{const [y,m]=month.split('-').map(Number),first=new Date(y,m-1,1),last=new Date(y,m,0);let start=new Date(first);start.setDate(1-first.getDay());let arr=[];for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);arr.push(`${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`)}return arr};
-const dataSnapshot=()=>({version:2,exportedAt:nowISO(),settings:SettingsService.get(),customers:Repository.getList(STORAGE_KEYS.customers),appointments:Repository.getList(STORAGE_KEYS.appointments),services:Repository.getList(STORAGE_KEYS.services),sales:Repository.getList(STORAGE_KEYS.sales)});
-const downloadBlob=(content,name,type)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
-const exportData=()=>downloadBlob(JSON.stringify(dataSnapshot(),null,2),`devina-salon-backup-${todayStr()}.json`,'application/json');
-const exportTxt=()=>{const d=dataSnapshot();const lines=[`DEVINA'S SALON DATA BACKUP`,`Exported: ${d.exportedAt}`,``,`CUSTOMERS (${d.customers.length})`];d.customers.forEach(x=>lines.push(`- ${x.name||''} | ${x.phone||''} | ${x.email||''}`));lines.push(``,`APPOINTMENTS (${d.appointments.length})`);d.appointments.forEach(x=>lines.push(`- ${x.date} ${x.startTime} | ${customerName(x.customerId)} | ${serviceName(x.serviceId)} | ${x.status}`));lines.push(``,`SERVICES (${d.services.length})`);d.services.forEach(x=>lines.push(`- ${x.name} | ${money(x.price)} | ${x.duration} min`));lines.push(``,`SALES (${d.sales.length})`);d.sales.forEach(x=>lines.push(`- ${x.date} | ${x.items||''} | ${money(x.total)} | ${x.paymentMethod||''} | ${x.status||''}`));downloadBlob(lines.join('\n'),`devina-salon-data-${todayStr()}.txt`,'text/plain;charset=utf-8')};
-const UI={
- route:location.hash.replace('#','')||'dashboard', editId:null, apptView:'list', apptFocus:todayStr(),
- mount(){this.root=document.getElementById('app');this.toastStack=document.getElementById('toastStack');seed();this.applyTheme();this.renderShell();this.navigate(this.route);this.bindEvents()},
- applyTheme(){document.body.classList.toggle('theme-dark',localStorage.getItem(STORAGE_KEYS.theme)==='dark')},
- renderShell(){this.root.innerHTML=`<div class="app-body"><aside class="sidebar"><div class="sidebar-brand"><div class="sidebar-brand-mark">D</div><div class="sidebar-brand-text"><strong>Devina's Salon</strong><span>Management System</span></div></div><nav class="sidebar-nav"><div class="sidebar-section-label">Workspace</div>${this.nav('dashboard','home','Dashboard')}${this.nav('appointments','calendar','Appointments')}${this.nav('clients','users','Clients')}${this.nav('sales','sales','Sales')}${this.nav('services','scissors','Services')}${this.nav('reports','chart','Reports')}<div class="sidebar-section-label">System</div>${this.nav('settings','settings','Settings')}</nav></aside><div class="main-col"><header class="app-header"><div class="header-top"><div class="header-brand"><div class="header-brand-mark">D</div><div class="header-brand-name">Devina's Salon</div></div><button class="icon-btn" data-action="theme">${icon('settings')}</button></div></header><header class="desktop-header"><div><div class="header-greeting" id="desktopTitle">Dashboard</div><div class="header-date">${formatDateReadable(todayStr())}</div></div><button class="btn btn-primary" id="desktopBook" data-action="quick-add">${icon('plus')} Book appointment</button></header><main class="page"><div class="page-inner" id="view-root"></div></main></div><nav class="bottom-nav">${this.bnav('dashboard','home','Home')}${this.bnav('appointments','calendar','Schedule')}${this.bnav('add','plus','Book Appt')}${this.bnav('clients','users','Clients')}${this.bnav('sales','sales','Sales')}</nav></div>`},
- nav(r,i,t){return `<a href="#${r}" class="sidebar-link" data-route="${r}">${icon(i)} ${t}</a>`},
- bnav(r,i,t){return `<a href="#${r}" class="nav-item" data-route="${r}">${icon(i)}<span>${t}</span></a>`},
- navigate(route){this.route=route||'dashboard';this.syncAllCompletedSales();if(this.route==='add'){this.openForm('appointment');return}const map={dashboard:['Dashboard',this.renderDashboard],appointments:['Appointments',this.renderAppointments],clients:['Clients',this.renderClients],sales:['Sales',this.renderSales],services:['Services',this.renderServices],reports:['Reports',this.renderReports],settings:['Settings',this.renderSettings]};const [title,fn]=map[this.route]||map.dashboard;document.getElementById('desktopTitle').textContent=title;document.getElementById('desktopBook').style.display=this.route==='dashboard'?'inline-flex':'none';document.querySelectorAll('[data-route]').forEach(x=>x.classList.toggle('active',x.dataset.route===this.route));fn.call(this)},
- kpi(label,value,ico='chart',tone=''){return `<div class="kpi-card"><div class="kpi-top"><div class="kpi-icon ${tone}">${icon(ico)}</div></div><div class="kpi-value">${value}</div><div class="kpi-label">${label}</div></div>`},
- renderDashboard(){const d=todayStr(),ap=AppointmentService.forDate(d),sales=SalesService.list().filter(x=>x.date===d&&x.status!=='refunded'),rev=sales.reduce((n,x)=>n+(+x.total||0),0),month=startOfMonth(d),monthSales=SalesService.list().filter(x=>x.date>=month&&x.date<=d&&x.status!=='refunded'),monthRev=monthSales.reduce((n,x)=>n+(+x.total||0),0);document.getElementById('view-root').innerHTML=`<div class="section"><div class="section-head"><div><h1 class="section-title" style="font-size:19px">Dashboard</h1><div class="card-sub">${formatDateReadable(d)}</div></div><button class="btn btn-primary" data-action="quick-add">${icon('plus')} Book appointment</button></div><div class="kpi-grid">${this.kpi("Today's revenue",money(rev),'dollar','success')}${this.kpi("Today's appointments",ap.length,'calendar')}${this.kpi("Clients",CustomerService.list().length,'users')}${this.kpi("Month revenue",money(monthRev),'chart','success')}</div></div><div class="two-col"><div class="section"><div class="section-head"><h2 class="section-title">Today's appointments</h2><a class="section-link" href="#appointments">View schedule ${icon('chevronRight')}</a></div>${ap.length?ap.map(a=>this.apptCard(a)).join(''):`<div class="card empty-state"><div class="empty-title">No appointments today</div><div class="empty-sub">Use Book appointment to add one.</div></div>`}</div><div class="section"><div class="section-head"><h2 class="section-title">Business snapshot</h2><a class="section-link" href="#reports">View reports ${icon('chevronRight')}</a></div><div class="card">${this.snapshotRow('Revenue this month',money(monthRev), 'dollar')}${this.snapshotRow('Appointments this month',AppointmentService.list().filter(x=>x.date>=month&&x.date<=d).length,'calendar')}${this.snapshotRow('Sales this month',monthSales.length,'sales')}${this.snapshotRow('Active services',ServiceCatalog.list().length,'scissors')}</div></div></div>`},
- snapshotRow(a,b,i){return `<div class="list-row"><div class="list-row-icon">${icon(i)}</div><div class="list-row-body"><div class="list-row-title">${a}</div><div class="list-row-sub">${b}</div></div></div>`},
- apptCard(a){const done=a.status==='completed';return `<div class="appt-card ${done?'appointment-done':''}"><div class="appt-time-col"><div class="appt-time">${formatTime12(a.startTime).split(' ')[0]}</div><div class="appt-meridiem">${formatTime12(a.startTime).split(' ')[1]}</div></div><div class="appt-body"><div class="appt-client">${escapeHtml(customerName(a.customerId))}</div><div class="appt-meta">${escapeHtml(serviceName(a.serviceId))} <span>·</span> ${a.duration||0} min <span>·</span> ${money((+a.serviceCharge||0)+(+a.extraCharge||0))}</div></div><div class="appt-right">${statusPill(a.status)}${!done&&a.status!=='cancelled'?`<button class="complete-btn" data-complete-appointment="${a.id}" title="Mark completed">✓ Completed</button>`:''}<button class="btn btn-secondary btn-sm" data-edit="appointment:${a.id}">Edit</button></div></div>`},
- renderAppointments(){const d=this.apptFocus||todayStr();const all=AppointmentService.list().sort(appointmentSort);document.getElementById('view-root').innerHTML=`<div class="section"><div class="section-head"><div><h2 class="section-title">Appointments</h2><div class="card-sub">Choose the view that makes your day easiest to understand.</div></div><button class="btn btn-primary" data-action="new-appointment">${icon('plus')} Book appointment</button></div><div class="view-tabs"><button class="view-tab ${this.apptView==='list'?'active':''}" data-appt-view="list">List</button><button class="view-tab ${this.apptView==='day'?'active':''}" data-appt-view="day">Day schedule</button><button class="view-tab ${this.apptView==='calendar'?'active':''}" data-appt-view="calendar">Calendar</button></div><div class="card" style="margin-top:10px"><div class="field-row"><div class="field"><label class="field-label">Date</label><input class="field-input" id="apptFocusDate" type="date" value="${d}"></div><div class="field"><label class="field-label">Search</label><input class="field-input" id="apptSearch" placeholder="Client or service"></div></div></div><div id="appointmentView" style="margin-top:12px">${this.appointmentViewHtml(all,d)}</div></div>`},
- appointmentViewHtml(all,d){if(this.apptView==='calendar')return this.calendarHtml(d,all);if(this.apptView==='day')return this.dayScheduleHtml(d,all);const q=(document.getElementById('apptSearch')?.value||'').toLowerCase();const rows=all.filter(a=>(!q||customerName(a.customerId).toLowerCase().includes(q)||serviceName(a.serviceId).toLowerCase().includes(q))).map(a=>this.apptCard(a)).join('');return rows||`<div class="card empty-state"><div class="empty-title">No appointments found</div></div>`},
- dayScheduleHtml(d,all){const list=all.filter(a=>a.date===d);let html='<div class="schedule-grid">';for(let h=8;h<=20;h++){const hh=pad2(h);const ev=list.filter(a=>a.startTime?.startsWith(hh));html+=`<div class="schedule-hour"><div class="schedule-hour-label">${formatTime12(hh+':00')}</div><div class="schedule-slot">${ev.map(a=>`<div class="schedule-event"><strong>${formatTime12(a.startTime)}</strong> · ${escapeHtml(customerName(a.customerId))}<br><span>${escapeHtml(serviceName(a.serviceId))} · ${a.duration||45} min</span></div>`).join('')}</div></div>`}return html+'</div>'},
- calendarHtml(d,all){const dates=monthDates(d.slice(0,7));return `<div class="calendar-wrap"><div class="calendar-grid">${DAY_NAMES.map(x=>`<div class="calendar-head">${x.slice(0,3)}</div>`).join('')}${dates.map(x=>{const same=x.slice(0,7)===d.slice(0,7),num=Number(x.slice(8)),ev=all.filter(a=>a.date===x);return `<div class="calendar-cell"><div class="calendar-day ${same?'':'muted'}">${num}</div>${ev.slice(0,3).map(a=>`<div class="calendar-appt" data-edit="appointment:${a.id}">${formatTime12(a.startTime)} · ${escapeHtml(customerName(a.customerId))}</div>`).join('')}${ev.length>3?`<div class="card-sub">+${ev.length-3} more</div>`:''}</div>`}).join('')}</div></div>`},
- renderClients(){const list=CustomerService.list();document.getElementById('view-root').innerHTML=`<div class="section"><div class="section-head"><div><h2 class="section-title">Clients</h2><div class="card-sub">${list.length} customer records</div></div><button class="btn btn-primary" data-action="new-client">${icon('plus')} Add client</button></div><div class="card"><input class="field-input" id="clientSearch" placeholder="Search name, phone or email"></div><div id="clientList" style="margin-top:12px">${this.clientRows(list)}</div></div>`;document.getElementById('clientSearch').oninput=e=>{const q=e.target.value.toLowerCase();document.getElementById('clientList').innerHTML=this.clientRows(list.filter(x=>[x.name,x.phone,x.email].some(v=>(v||'').toLowerCase().includes(q))))}},
- clientRows(list){return list.length?list.map(x=>`<div class="client-card"><div class="client-top"><div class="client-avatar">${initials(x.name)}</div><div style="flex:1"><div class="client-name">${escapeHtml(x.name)}</div><div class="client-phone">${escapeHtml(x.phone||'')} ${x.email?'· '+escapeHtml(x.email):''}</div></div></div><div class="svc-actions"><button class="btn btn-secondary btn-sm" data-edit="client:${x.id}">Edit</button><button class="btn btn-danger btn-sm" data-delete="client:${x.id}">${icon('trash')}</button></div></div>`).join(''):`<div class="card empty-state"><div class="empty-title">No clients found</div></div>`},
- renderSales(){const list=SalesService.list().sort((a,b)=>(b.date||'').localeCompare(a.date||''));const rev=list.filter(x=>x.status!=='refunded').reduce((n,x)=>n+(+x.total||0),0);document.getElementById('view-root').innerHTML=`<div class="section"><div class="section-head"><div><h2 class="section-title">Sales</h2><div class="card-sub">${list.length} transactions · ${money(rev)} net recorded</div></div><button class="btn btn-primary" data-action="new-sale">${icon('plus')} New sale</button></div><div class="card" style="overflow:auto"><table class="data-table"><thead><tr><th>Date</th><th>Client</th><th>Description</th><th>Payment</th><th>Status</th><th>Total</th><th></th></tr></thead><tbody>${list.map(x=>`<tr><td>${formatDateShort(x.date)}</td><td>${escapeHtml(customerName(x.customerId))}</td><td>${escapeHtml(x.items||'')}</td><td>${escapeHtml(x.paymentMethod||'')}</td><td>${statusPill(x.status)}</td><td><strong>${money(x.total)}</strong></td><td><button class="btn btn-secondary btn-sm" data-edit="sale:${x.id}">Edit</button></td></tr>`).join('')||`<tr><td colspan="7">No sales recorded.</td></tr>`}</tbody></table></div></div>`},
- renderServices(){const list=ServiceCatalog.list({includeArchived:true});document.getElementById('view-root').innerHTML=`<div class="section"><div class="section-head"><div><h2 class="section-title">Services</h2><div class="card-sub">Manage the services used in appointments and sales.</div></div><button class="btn btn-primary" data-action="new-service">${icon('plus')} Add service</button></div>${list.map(x=>`<div class="client-card"><div class="client-top"><div class="client-avatar">${icon('scissors')}</div><div style="flex:1"><div class="client-name">${escapeHtml(x.name)} ${x.active===false?statusPill('inactive'):statusPill('active')}</div><div class="client-phone">${money(x.price)} · ${x.duration||0} min · ${escapeHtml(x.category||'')}</div></div></div><div class="svc-actions"><button class="btn btn-secondary btn-sm" data-edit="service:${x.id}">Edit</button><button class="btn ${x.active===false?'btn-primary':'btn-danger'} btn-sm" data-toggle-service="${x.id}">${x.active===false?'Reactivate':'Archive'}</button></div></div>`).join('')||`<div class="card empty-state"><div class="empty-title">No services</div></div>`}</div>`},
- renderReports(){const today=todayStr(),month=startOfMonth(today),sales=SalesService.list().filter(x=>x.date>=month&&x.date<=today&&x.status!=='refunded'),rev=sales.reduce((n,x)=>n+(+x.total||0),0),ap=AppointmentService.list().filter(x=>x.date>=month&&x.date<=today),completed=ap.filter(x=>x.status==='completed').length,cancelled=ap.filter(x=>x.status==='cancelled').length,noShow=ap.filter(x=>x.status==='no_show').length,avg=sales.length?rev/sales.length:0;const daily=[];for(let i=0;i<7;i++){const day=addDays(today,i-6);const v=sales.filter(x=>x.date===day).reduce((n,x)=>n+(+x.total||0),0);daily.push({day,v})}const serviceMap={};sales.forEach(x=>{serviceMap[x.items||'Other']=(serviceMap[x.items||'Other']||0)+(+x.total||0)});const top=Object.entries(serviceMap).sort((a,b)=>b[1]-a[1]).slice(0,6);const max=Math.max(1,...daily.map(x=>x.v));const mix={cash:0,card:0,other:0};sales.forEach(x=>mix[x.paymentMethod||'other']=(mix[x.paymentMethod||'other']||0)+(+x.total||0));const totalMix=Math.max(1,Object.values(mix).reduce((a,b)=>a+b,0));const p1=mix.cash/totalMix*100,p2=(mix.cash+mix.card)/totalMix*100;document.getElementById('view-root').innerHTML=`<div class="section"><div class="section-head"><div><h2 class="section-title">Reports & analytics</h2><div class="card-sub">Month-to-date business performance for planning.</div></div></div><div class="kpi-grid">${this.kpi('Revenue',money(rev),'dollar','success')}${this.kpi('Transactions',sales.length,'sales')}${this.kpi('Avg. sale',money(avg),'chart')}${this.kpi('Appointments',ap.length,'calendar')}</div></div><div class="analytics-grid"><div class="card chart-card"><div class="card-title">Revenue — last 7 days</div><div class="chart">${daily.map(x=>`<div class="bar-col"><div class="bar-value">${x.v?money(x.v).replace('.00',''):''}</div><div class="bar" style="height:${Math.max(2,x.v/max*145)}px"></div><div class="bar-label">${x.day.slice(5)}</div></div>`).join('')}</div></div><div class="card chart-card"><div class="card-title">Appointment outcomes</div><div class="donut-wrap"><div class="donut" style="background:conic-gradient(var(--success) 0 ${completed?completed/Math.max(1,ap.length)*100:0}%,var(--danger) ${completed/Math.max(1,ap.length)*100}% ${(completed+cancelled)/Math.max(1,ap.length)*100}%,var(--warning) ${(completed+cancelled)/Math.max(1,ap.length)*100}% 100%)"></div><div class="legend">${[['Completed',completed,'var(--success)'],['Cancelled',cancelled,'var(--danger)'],['No show',noShow,'var(--warning)']].map(x=>`<div class="legend-row"><span class="legend-dot" style="background:${x[2]}"></span>${x[0]}: <strong>${x[1]}</strong></div>`).join('')}</div></div></div></div><div class="analytics-grid" style="margin-top:16px"><div class="card"><div class="card-title">Top revenue sources</div>${top.map(([k,v])=>`<div class="rank-row"><div class="rank-label">${escapeHtml(k)}</div><div class="rank-bar-track"><div class="rank-bar-fill" style="width:${rev?v/rev*100:0}%"></div></div><div class="rank-value">${money(v)}</div></div>`).join('')||'<div class="empty-state">No sales yet.</div>'}</div><div class="card"><div class="card-title">Payment mix</div>${[['Cash',mix.cash],['Card',mix.card],['Other',mix.other]].map(x=>`<div class="rank-row"><div class="rank-label">${x[0]}</div><div class="rank-bar-track"><div class="rank-bar-fill" style="width:${x[1]/totalMix*100}%"></div></div><div class="rank-value">${Math.round(x[1]/totalMix*100)}%</div></div>`).join('')}</div></div><div class="card" style="margin-top:16px"><div class="card-title">Planning stats</div><div class="three-col"><div class="list-row"><div class="list-row-icon">${icon('checkCircle')}</div><div class="list-row-body"><div class="list-row-title">${completed}</div><div class="list-row-sub">Completed appointments</div></div></div><div class="list-row"><div class="list-row-icon">${icon('calendar')}</div><div class="list-row-body"><div class="list-row-title">${cancelled+noShow}</div><div class="list-row-sub">Cancelled / no-show</div></div></div><div class="list-row"><div class="list-row-icon">${icon('users')}</div><div class="list-row-body"><div class="list-row-title">${CustomerService.list().length}</div><div class="list-row-sub">Total clients</div></div></div></div></div>`},
- renderSettings(){const dark=document.body.classList.contains('theme-dark');document.getElementById('view-root').innerHTML=`<div class="section"><div class="section-head"><div><h2 class="section-title">Settings</h2><div class="card-sub">System preferences and database tools. Business information is fixed.</div></div></div><div class="card"><div class="card-title">Appearance</div><div class="card-sub" style="margin:4px 0 12px">Choose how the system looks on this device.</div><div class="view-tabs"><button class="view-tab ${!dark?'active':''}" data-theme-choice="light">White mode</button><button class="view-tab ${dark?'active':''}" data-theme-choice="dark">Dark mode</button></div></div><div class="card" style="margin-top:12px"><div class="card-title">Database & data</div><div class="card-sub" style="margin:4px 0 14px">Download a backup before importing or deleting data.</div><div class="alert-row" style="background:var(--warning-soft);border-radius:10px;padding:12px;margin-bottom:12px"><div class="alert-icon">${icon('alertTriangle')}</div><div class="alert-body"><div class="alert-title">Caution</div><div class="alert-sub">Importing a backup replaces the current salon database. Deleting all data cannot be undone.</div></div></div><div class="qa-grid"><button class="btn btn-secondary" data-action="export-json">${icon('sales')} Download data</button><button class="btn btn-secondary" data-action="export-txt">${icon('sales')} Save data as TXT</button><button class="btn btn-secondary" data-action="import-json">${icon('calendar')} Import data</button></div><input type="file" id="importFile" accept=".json" hidden></div><div class="card danger-zone" style="margin-top:12px"><div class="card-title">Danger zone</div><div class="card-sub" style="margin:4px 0 14px">Permanently delete all clients, appointments, services and sales stored in this browser.</div><button class="btn btn-danger" data-action="delete-all-data">${icon('alertTriangle')} Delete all data</button></div></div>`},
- servicePrice(id){const s=ServiceCatalog.get(id);return s?Number(s.price)||0:0},
- serviceDuration(id){const s=ServiceCatalog.get(id);return s?Number(s.duration)||0:0},
- syncCompletedSale(a){if(!a)return;const linked=SalesService.list().find(x=>x.appointmentId===a.id);if(a.status==='completed'){const total=this.servicePrice(a.serviceId)+Number(a.extraCharge||0);const payload={appointmentId:a.id,date:a.date,customerId:a.customerId,items:`${serviceName(a.serviceId)}${Number(a.extraCharge||0)?' + Extra charge':''}`,total,paymentMethod:linked?.paymentMethod||'card',status:'paid'};if(linked)SalesService.update(linked.id,payload);else SalesService.create(payload)}else if(linked){SalesService.remove(linked.id)}},
- syncAllCompletedSales(){AppointmentService.list().forEach(a=>this.syncCompletedSale(a))},
- openForm(type,id=null){this.editId=id;const getters={client:CustomerService.get,appointment:AppointmentService.get,sale:SalesService.get,service:ServiceCatalog.get};const data=id&&getters[type]?getters[type](id):{};const customers=CustomerService.list(),services=ServiceCatalog.list();let body='';const title=(id?'Edit ':'New ')+({client:'Client',appointment:'Appointment',sale:'Sale',service:'Service'}[type]);if(type==='client')body=`${this.field('name','Full name',data.name,'text',true)}${this.field('phone','Phone',data.phone)}${this.field('email','Email',data.email,'email')}${this.field('notes','Notes',data.notes,'textarea')}`;else if(type==='appointment')body=`${this.select('customerId','Client',customers.map(x=>[x.id,x.name]),data.customerId,true)}${this.select('serviceId','Service',services.map(x=>[x.id,`${x.name} — ${money(x.price)}`]),data.serviceId,true)}<div class="field-row">${this.field('date','Date',data.date||this.apptFocus||todayStr(),'date',true)}${this.field('startTime','Start time',data.startTime||'10:00','time',true)}</div><div class="field-row"><div class="field"><label class="field-label">Service charge</label><input class="field-input" id="appointmentServiceCharge" value="${Number(data.serviceCharge ?? this.servicePrice(data.serviceId) ?? 0).toFixed(2)}" readonly></div>${this.field('extraCharge','Extra charge',data.extraCharge??0,'number',false)}</div><div class="field-row"><div class="field"><label class="field-label">Duration (min)</label><input class="field-input" id="appointmentDuration" name="duration" type="number" value="${data.duration ?? this.serviceDuration(data.serviceId) ?? 0}" readonly></div>${this.select('status','Status',[['booked','Appointment booked'],['completed','Completed'],['cancelled','Canceled']],data.status||'booked',true)}</div><div class="field"><label class="field-label">Total charge</label><input class="field-input" id="appointmentTotal" value="${(Number(data.serviceCharge ?? this.servicePrice(data.serviceId) ?? 0)+Number(data.extraCharge||0)).toFixed(2)}" readonly></div>${this.field('notes','Notes',data.notes,'textarea')}`;else if(type==='sale')body=`${this.field('date','Date',data.date||todayStr(),'date',true)}${this.select('customerId','Client',[[ '', 'Walk-in' ],...customers.map(x=>[x.id,x.name])],data.customerId)}${this.field('items','Items / description',data.items||'Service')}${this.field('total','Total',data.total||0,'number',true)}${this.select('paymentMethod','Payment method',['cash','card','other'].map(x=>[x,x]),data.paymentMethod||'card',true)}${this.select('status','Status',['paid','refunded'].map(x=>[x,x]),data.status||'paid')}`;else if(type==='service')body=`${this.field('name','Service name',data.name,'text',true)}${this.field('category','Category',data.category||'General')}${this.field('price','Price',data.price||0,'number',true)}${this.field('duration','Duration (min)',data.duration||45,'number',true)}${this.field('description','Description',data.description,'textarea')}`;document.getElementById('overlayRoot').innerHTML=`<div class="sheet"><div class="sheet-handle"></div><div class="sheet-header"><div class="sheet-title">${title}</div><button class="icon-btn" data-close>${icon('x')}</button></div><form class="sheet-body" id="entityForm" data-type="${type}">${body}<div class="field-hint">Changes are saved locally in this browser.</div></form><div class="sheet-footer">${id&&type==='appointment'?'<button class="btn btn-danger" data-delete-appointment="'+id+'">Delete</button>':''}<button class="btn btn-secondary" data-close>Cancel</button><button class="btn btn-primary" data-submit-form>${id?'Save changes':'Create'}</button></div></div>`;document.getElementById('overlayRoot').classList.add('open')},
- field(name,label,value='',type='text',required=false){if(type==='textarea')return `<div class="field"><label class="field-label">${label}</label><textarea class="field-textarea" name="${name}" ${required?'required':''}>${escapeHtml(value)}</textarea></div>`;return `<div class="field"><label class="field-label">${label}</label><input class="field-input" name="${name}" type="${type}" value="${escapeHtml(value)}" ${required?'required':''}></div>`},
- select(name,label,opts,value='',required=false){return `<div class="field"><label class="field-label">${label}</label><select class="field-select" name="${name}" ${required?'required':''}>${opts.map(([v,l])=>`<option value="${escapeHtml(v)}" ${String(v)===String(value)?'selected':''}>${escapeHtml(l)}</option>`).join('')}</select></div>`},
- closeModal(){document.getElementById('overlayRoot').classList.remove('open');setTimeout(()=>document.getElementById('overlayRoot').innerHTML='',200);this.editId=null},
- saveForm(){const form=document.getElementById('entityForm');if(!form.reportValidity())return;const type=form.dataset.type,data=Object.fromEntries(new FormData(form).entries());['price','duration','total','extraCharge','serviceCharge'].forEach(k=>{if(k in data)data[k]=Number(data[k])||0});if(type==='appointment'){data.serviceCharge=this.servicePrice(data.serviceId);data.duration=this.serviceDuration(data.serviceId);data.total=data.serviceCharge+data.extraCharge;data.status=data.status||'booked'}const map={client:CustomerService,appointment:AppointmentService,sale:SalesService,service:ServiceCatalog};let saved;if(this.editId){saved=map[type].update(this.editId,data);if(type==='appointment')this.syncCompletedSale(saved);this.showToast('Updated successfully')}else{saved=map[type].create(data);if(type==='appointment')this.syncCompletedSale(saved);this.showToast('Created successfully')}const route=this.route;this.closeModal();this.navigate(route)},
- bindEvents(){document.addEventListener('click',e=>{const link=e.target.closest('a[data-route]');if(link){e.preventDefault();const r=link.dataset.route;if(r==='add'){this.openForm('appointment');return}history.replaceState(null,'','#'+r);this.navigate(r);return}const action=e.target.closest('[data-action]')?.dataset.action;if(action){if(['new-appointment','book-appt','quick-add'].includes(action))this.openForm('appointment');else if(action==='new-client')this.openForm('client');else if(action==='new-sale')this.openForm('sale');else if(action==='new-service')this.openForm('service');else if(action==='theme'){const dark=!document.body.classList.contains('theme-dark');localStorage.setItem(STORAGE_KEYS.theme,dark?'dark':'light');this.applyTheme();this.showToast(dark?'Dark mode enabled':'White mode enabled');if(this.route==='settings')this.navigate('settings')}else if(action==='export-json')exportData();else if(action==='export-txt')exportTxt();else if(action==='import-json')document.getElementById('importFile').click();else if(action==='delete-all-data'){if(confirm('DANGER: This will delete ALL clients, appointments, services and sales. Everything will be lost. Continue?')&&confirm('FINAL WARNING: ALL DATA WILL BE PERMANENTLY DELETED. Are you absolutely sure?')){[STORAGE_KEYS.customers,STORAGE_KEYS.appointments,STORAGE_KEYS.services,STORAGE_KEYS.sales].forEach(k=>localStorage.removeItem(k));this.navigate('dashboard');this.showToast('All data deleted','error')}}return}if(e.target.closest('[data-theme-choice]')){const dark=e.target.closest('[data-theme-choice]').dataset.themeChoice==='dark';localStorage.setItem(STORAGE_KEYS.theme,dark?'dark':'light');this.applyTheme();this.navigate('settings');return}if(e.target.closest('[data-appt-view]')){this.apptView=e.target.closest('[data-appt-view]').dataset.apptView;this.navigate('appointments');return}if(e.target.closest('[data-delete-appointment]')){const id=e.target.closest('[data-delete-appointment]').dataset.deleteAppointment;if(confirm('CAUTION: Delete this appointment? Its linked sale will also be removed. Continue?')&&confirm('FINAL CAUTION: Are you absolutely sure? This cannot be undone.')){const linked=SalesService.list().find(x=>x.appointmentId===id);if(linked)SalesService.remove(linked.id);AppointmentService.remove(id);this.closeModal();this.navigate(this.route);this.showToast('Appointment deleted')}return}if(e.target.closest('[data-complete-appointment]')){const id=e.target.closest('[data-complete-appointment]').dataset.completeAppointment;const a=AppointmentService.get(id);if(a&&a.status!=='completed'){const updated=AppointmentService.update(id,{status:'completed'});this.syncCompletedSale(updated);this.showToast('Appointment completed');this.navigate(this.route)}return}if(e.target.closest('[data-close]')){this.closeModal();return}if(e.target.closest('[data-submit-form]')){e.preventDefault();this.saveForm();return}const ed=e.target.closest('[data-edit]');if(ed){const [t,id]=ed.dataset.edit.split(':');this.openForm(t,id);return}const del=e.target.closest('[data-delete]');if(del){const [t,id]=del.dataset.delete.split(':');if(confirm('Delete this record?')){({client:CustomerService,appointment:AppointmentService,sale:SalesService})[t]?.remove(id);this.navigate(this.route);this.showToast('Record deleted')}}if(e.target.closest('[data-toggle-service]')){const id=e.target.closest('[data-toggle-service]').dataset.toggleService;const sv=ServiceCatalog.get(id);ServiceCatalog.update(id,{active:sv.active===false});this.navigate('services');this.showToast(sv.active===false?'Service reactivated':'Service archived')}});document.addEventListener('input',e=>{if(e.target.name==='extraCharge'){const sc=document.getElementById('appointmentServiceCharge'),tot=document.getElementById('appointmentTotal');if(tot)tot.value=(Number(sc?.value||0)+Number(e.target.value||0)).toFixed(2)}if(e.target.id==='apptSearch'){const all=AppointmentService.list().sort(appointmentSort);const box=document.getElementById('appointmentView');if(box&&this.apptView==='list')box.innerHTML=this.appointmentViewHtml(all,this.apptFocus)}});document.addEventListener('change',e=>{if(e.target.name==='serviceId'){const id=e.target.value,price=this.servicePrice(id),duration=this.serviceDuration(id),sc=document.getElementById('appointmentServiceCharge'),du=document.getElementById('appointmentDuration'),tot=document.getElementById('appointmentTotal'),ex=document.querySelector('[name="extraCharge"]');if(sc)sc.value=price.toFixed(2);if(du)du.value=duration;if(tot)tot.value=(price+Number(ex?.value||0)).toFixed(2)}if(e.target.id==='apptFocusDate'){this.apptFocus=e.target.value;this.navigate('appointments')}if(e.target.id==='importFile'&&e.target.files[0]){if(!confirm('CAUTION: Importing will replace the current salon database. Continue only if you have a backup.')){e.target.value='';return}const file=e.target.files[0],reader=new FileReader();reader.onload=()=>{try{const d=JSON.parse(reader.result);if(!d||!Array.isArray(d.customers)||!Array.isArray(d.appointments)||!Array.isArray(d.services)||!Array.isArray(d.sales))throw Error('Invalid backup');Repository.setData(STORAGE_KEYS.customers,d.customers);Repository.setData(STORAGE_KEYS.appointments,d.appointments);Repository.setData(STORAGE_KEYS.services,d.services);Repository.setData(STORAGE_KEYS.sales,d.sales);if(d.settings)Repository.setData(STORAGE_KEYS.settings,d.settings);this.showToast('Database imported successfully');this.navigate(this.route)}catch(err){this.showToast('Import failed: invalid backup file','error')}finally{e.target.value=''}};reader.readAsText(file)}})} ,
- showToast(msg,type='success'){const t=document.createElement('div');t.className=`toast show ${type==='error'?'error':''}`;t.innerHTML=`<div class="toast-icon">${icon(type==='error'?'alertTriangle':'check')}</div><div>${escapeHtml(msg)}</div>`;this.toastStack.appendChild(t);setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),250)},2800)}
-};
-document.addEventListener('DOMContentLoaded',()=>UI.mount());
-window.addEventListener('hashchange',()=>UI.navigate(location.hash.replace('#','')||'dashboard'));
-</script>
+        <!-- Main Content -->
+        <div class="main-wrapper">
+            <div class="container">
+                <main class="main-content">
+                    <!-- Dashboard View -->
+                    <div class="view active" id="dashboard">
+                        <div class="page-header">
+                            <h1 class="page-title">Dashboard</h1>
+                            <p class="page-subtitle" id="currentDate"></p>
+                        </div>
+
+                        <div class="stats-grid" id="statsGrid"></div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Today's Appointments</h2>
+                                <span class="badge badge-primary" id="appointmentBadge">0</span>
+                            </div>
+                            <div id="todayAppointments"></div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Quick Stats</h2>
+                            </div>
+                            <div id="quickStats"></div>
+                        </div>
+                    </div>
+
+                    <!-- Appointments View -->
+                    <div class="view" id="appointments">
+                        <div class="page-header">
+                            <h1 class="page-title">Appointments</h1>
+                            <p class="page-subtitle">Manage your bookings</p>
+                        </div>
+                        <div id="appointmentsList"></div>
+                    </div>
+
+                    <!-- Clients View -->
+                    <div class="view" id="clients">
+                        <div class="page-header">
+                            <h1 class="page-title">Clients</h1>
+                            <p class="page-subtitle"><span id="clientCount">0</span> total clients</p>
+                        </div>
+                        <div id="clientsList"></div>
+                    </div>
+
+                    <!-- Sales View -->
+                    <div class="view" id="sales">
+                        <div class="page-header">
+                            <h1 class="page-title">Sales</h1>
+                            <p class="page-subtitle">Revenue: $<span id="totalRevenue">0</span></p>
+                        </div>
+                        <div class="card">
+                            <div class="table-container">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Client</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="salesTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Purchases View -->
+                    <div class="view" id="purchases">
+                        <div class="page-header">
+                            <h1 class="page-title">Purchases</h1>
+                            <p class="page-subtitle">Total: $<span id="totalExpenses">0</span></p>
+                        </div>
+                        <div class="card">
+                            <div class="table-container">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Item</th>
+                                            <th>Qty</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="purchasesTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Services View -->
+                    <div class="view" id="services">
+                        <div class="page-header">
+                            <h1 class="page-title">Services</h1>
+                            <p class="page-subtitle">Salon offerings</p>
+                        </div>
+                        <div id="servicesList"></div>
+                    </div>
+
+                    <!-- Reports View -->
+                    <div class="view" id="reports">
+                        <div class="page-header">
+                            <h1 class="page-title">Reports</h1>
+                            <p class="page-subtitle">Business analytics</p>
+                        </div>
+
+                        <div class="stats-grid" id="reportStats"></div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Revenue Trend</h2>
+                            </div>
+                            <div class="chart" id="revenueChart"></div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Top Services</h2>
+                            </div>
+                            <div id="topServices"></div>
+                        </div>
+                    </div>
+
+                    <!-- Settings View -->
+                    <div class="view" id="settings">
+                        <div class="page-header">
+                            <h1 class="page-title">Settings</h1>
+                            <p class="page-subtitle">App preferences</p>
+                        </div>
+
+                        <div class="card">
+                            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">Appearance</h3>
+                            <button class="btn btn-secondary" id="themeBtn">Toggle Dark Mode</button>
+                        </div>
+
+                        <div class="card">
+                            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">Data Management</h3>
+                            <button class="btn btn-secondary" id="exportBtn">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                </svg>
+                                Export Data
+                            </button>
+                        </div>
+
+                        <div class="card" style="border: 2px solid var(--danger);">
+                            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--danger);">Danger Zone</h3>
+                            <p style="font-size: 13px; color: var(--text-light); margin-bottom: 16px;">This action cannot be undone</p>
+                            <button class="btn" style="background: var(--danger); color: white;" id="clearBtn">Clear All Data</button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-view="dashboard">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </svg>
+            Home
+        </button>
+        <button class="nav-btn" data-view="appointments">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            Schedule
+        </button>
+        <button class="nav-btn" data-view="clients">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+            Clients
+        </button>
+        <button class="nav-btn" data-view="sales">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Sales
+        </button>
+        <button class="nav-btn" data-view="reports">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+            Reports
+        </button>
+    </nav>
+
+    <!-- FAB -->
+    <button class="fab" id="fab">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="24" height="24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+    </button>
+
+    <!-- Booking Modal -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal">
+            <div class="modal-handle"></div>
+            <div class="modal-header">
+                <h3 class="modal-title">New Appointment</h3>
+                <button class="modal-close" onclick="closeModal('bookingModal')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Client</label>
+                    <select class="form-select" id="bookingClient">
+                        <option value="">Select client...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Service</label>
+                    <select class="form-select" id="bookingService">
+                        <option value="">Select service...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-input" id="bookingDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Time</label>
+                    <input type="time" class="form-input" id="bookingTime">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notes (Optional)</label>
+                    <textarea class="form-input" id="bookingNotes" placeholder="Add special requirements..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('bookingModal')">Cancel</button>
+                <button class="btn btn-primary" id="saveBooking">Book Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Purchase Modal -->
+    <div class="modal-overlay" id="purchaseModal">
+        <div class="modal">
+            <div class="modal-handle"></div>
+            <div class="modal-header">
+                <h3 class="modal-title">New Purchase</h3>
+                <button class="modal-close" onclick="closeModal('purchaseModal')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Item Name</label>
+                    <input type="text" class="form-input" id="purchaseItem" placeholder="Enter item name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select class="form-select" id="purchaseCategory">
+                        <option value="">Select category...</option>
+                        <option value="Hair Products">Hair Products</option>
+                        <option value="Nail Products">Nail Products</option>
+                        <option value="Spa Products">Spa Products</option>
+                        <option value="Equipment">Equipment</option>
+                        <option value="Supplies">Supplies</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" class="form-input" id="purchaseQty" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Unit Price ($)</label>
+                    <input type="number" class="form-input" id="purchasePrice" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-input" id="purchaseDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description (Optional)</label>
+                    <textarea class="form-input" id="purchaseDesc" placeholder="Additional details..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('purchaseModal')">Cancel</button>
+                <button class="btn btn-primary" id="savePurchase">Save Purchase</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Client Modal -->
+    <div class="modal-overlay" id="clientModal">
+        <div class="modal">
+            <div class="modal-handle"></div>
+            <div class="modal-header">
+                <h3 class="modal-title">Add Client</h3>
+                <button class="modal-close" onclick="closeModal('clientModal')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" id="clientName" placeholder="Enter full name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" class="form-input" id="clientPhone" placeholder="(555) 123-4567">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="clientEmail" placeholder="client@email.com">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('clientModal')">Cancel</button>
+                <button class="btn btn-primary" id="saveClient">Add Client</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Modal -->
+    <div class="modal-overlay" id="serviceModal">
+        <div class="modal">
+            <div class="modal-handle"></div>
+            <div class="modal-header">
+                <h3 class="modal-title">Add Service</h3>
+                <button class="modal-close" onclick="closeModal('serviceModal')">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Service Name</label>
+                    <input type="text" class="form-input" id="serviceName" placeholder="Enter service name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select class="form-select" id="serviceCategory">
+                        <option value="">Select category...</option>
+                        <option value="Hair Services">Hair Services</option>
+                        <option value="Nail Services">Nail Services</option>
+                        <option value="Spa Services">Spa Services</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Price ($)</label>
+                    <input type="number" class="form-input" id="servicePrice" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Duration (minutes)</label>
+                    <input type="number" class="form-input" id="serviceDuration" placeholder="45">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('serviceModal')">Cancel</button>
+                <button class="btn btn-primary" id="saveService">Add Service</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <div class="toast-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+        </div>
+        <div class="toast-message" id="toastMessage"></div>
+    </div>
+
+    <script>
+        // State
+        const state = {
+            appointments: [
+                {id: 1, client: 'Sarah Johnson', service: 'Haircut & Color', date: '2024-12-16', time: '09:00', duration: 90, price: 125, status: 'booked'},
+                {id: 2, client: 'Emily Chen', service: 'Manicure & Pedicure', date: '2024-12-16', time: '10:30', duration: 60, price: 75, status: 'completed'},
+                {id: 3, client: 'Michael Torres', service: "Men's Haircut", date: '2024-12-16', time: '14:00', duration: 30, price: 35, status: 'booked'}
+            ],
+            clients: [
+                {id: 1, name: 'Sarah Johnson', phone: '(555) 123-4567', email: 'sarah@email.com'},
+                {id: 2, name: 'Emily Chen', phone: '(555) 234-5678', email: 'emily@email.com'},
+                {id: 3, name: 'Michael Torres', phone: '(555) 345-6789', email: 'michael@email.com'}
+            ],
+            sales: [
+                {id: 1, date: '2024-12-16', client: 'Sarah Johnson', service: 'Haircut & Color', payment: 'Card', status: 'paid', amount: 125},
+                {id: 2, date: '2024-12-16', client: 'Emily Chen', service: 'Manicure', payment: 'Cash', status: 'paid', amount: 75}
+            ],
+            purchases: [
+                {id: 1, date: '2024-12-15', item: 'Hair Color - Blonde', category: 'Hair Products', quantity: 10, price: 25, total: 250},
+                {id: 2, date: '2024-12-14', item: 'Nail Polish Set', category: 'Nail Products', quantity: 5, price: 30, total: 150}
+            ],
+            services: [
+                {id: 1, name: "Women's Haircut", price: 65, duration: 45, category: 'Hair Services', status: 'active'},
+                {id: 2, name: 'Hair Color', price: 120, duration: 90, category: 'Hair Services', status: 'active'},
+                {id: 3, name: 'Manicure', price: 45, duration: 30, category: 'Nail Services', status: 'active'}
+            ]
+        };
+
+        // Navigation
+        function switchView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            
+            document.querySelectorAll('.nav-item, .nav-btn').forEach(n => n.classList.remove('active'));
+            document.querySelectorAll(`[data-view="${viewId}"]`).forEach(n => n.classList.add('active'));
+            
+            if (window.innerWidth < 768) {
+                closeSidebar();
+            }
+        }
+
+        document.querySelectorAll('.nav-item, .nav-btn').forEach(item => {
+            item.addEventListener('click', () => switchView(item.dataset.view));
+        });
+
+        // Sidebar
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const menuBtn = document.getElementById('menuBtn');
+
+        function openSidebar() {
+            sidebar.classList.add('active');
+            sidebarOverlay.classList.add('active');
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+        }
+
+        menuBtn.addEventListener('click', openSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Modals
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toast.classList.add('show', 'toast-success');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Render Functions
+        function renderStats() {
+            const totalRevenue = state.sales.reduce((sum, s) => sum + s.amount, 0);
+            const stats = [
+                {label: "Today's Revenue", value: `$${totalRevenue}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`, color: '#6366F1'},
+                {label: 'Appointments', value: state.appointments.length, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`, color: '#10B981'},
+                {label: 'Clients', value: state.clients.length, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>`, color: '#F59E0B'},
+                {label: 'Services', value: state.services.length, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>`, color: '#EF4444'}
+            ];
+
+            document.getElementById('statsGrid').innerHTML = stats.map(s => `
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: ${s.color}20; color: ${s.color};">
+                        ${s.icon}
+                    </div>
+                    <div class="stat-value">${s.value}</div>
+                    <div class="stat-label">${s.label}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderAppointments() {
+            const html = state.appointments.map(a => `
+                <div class="list-item">
+                    <div class="item-icon" style="background: #EEF2FF; color: #6366F1;">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="item-content">
+                        <div class="item-title">${a.client}</div>
+                        <div class="item-subtitle">${a.service} • ${a.time}</div>
+                    </div>
+                    <div class="item-action">
+                        <span class="badge badge-${a.status === 'completed' ? 'success' : 'primary'}">${a.status}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('todayAppointments').innerHTML = html;
+            document.getElementById('appointmentsList').innerHTML = html;
+            document.getElementById('appointmentBadge').textContent = state.appointments.length;
+        }
+
+        function renderClients() {
+            const colors = ['#EEF2FF', '#D1FAE5', '#FEF3C7', '#FEE2E2'];
+            const html = state.clients.map((c, i) => `
+                <div class="list-item">
+                    <div class="item-icon" style="background: ${colors[i % colors.length]};">
+                        ${c.name.split(' ').map(n => n[0]).join('')}
+                    </div>
+                    <div class="item-content">
+                        <div class="item-title">${c.name}</div>
+                        <div class="item-subtitle">${c.phone}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('clientsList').innerHTML = html;
+            document.getElementById('clientCount').textContent = state.clients.length;
+        }
+
+        function renderSales() {
+            const totalRevenue = state.sales.reduce((sum, s) => sum + s.amount, 0);
+            document.getElementById('totalRevenue').textContent = totalRevenue;
+
+            document.getElementById('salesTable').innerHTML = state.sales.map(s => `
+                <tr>
+                    <td>${s.date}</td>
+                    <td>${s.client}</td>
+                    <td style="font-weight: 600;">$${s.amount}</td>
+                    <td><span class="badge badge-success">${s.status}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        function renderPurchases() {
+            const totalExpenses = state.purchases.reduce((sum, p) => sum + p.total, 0);
+            document.getElementById('totalExpenses').textContent = totalExpenses;
+
+            document.getElementById('purchasesTable').innerHTML = state.purchases.map(p => `
+                <tr>
+                    <td>${p.date}</td>
+                    <td>${p.item}</td>
+                    <td>${p.quantity}</td>
+                    <td style="font-weight: 600;">$${p.total}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderServices() {
+            const html = state.services.map(s => `
+                <div class="list-item">
+                    <div class="item-icon" style="background: #EEF2FF; color: #6366F1;">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
+                    <div class="item-content">
+                        <div class="item-title">${s.name}</div>
+                        <div class="item-subtitle">$${s.price} • ${s.duration} min</div>
+                    </div>
+                    <div class="item-action">
+                        <span class="badge badge-success">active</span>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('servicesList').innerHTML = html;
+        }
+
+        function renderQuickStats() {
+            const totalRevenue = state.sales.reduce((sum, s) => sum + s.amount, 0);
+            const html = `
+                <div class="list-item" style="border: none; box-shadow: none; padding: 12px 0;">
+                    <div class="item-content">
+                        <div class="item-subtitle">Revenue this month</div>
+                    </div>
+                    <div class="item-action">
+                        <div style="font-weight: 700; font-size: 16px;">$${totalRevenue}</div>
+                    </div>
+                </div>
+                <div class="list-item" style="border: none; box-shadow: none; padding: 12px 0;">
+                    <div class="item-content">
+                        <div class="item-subtitle">Total sales</div>
+                    </div>
+                    <div class="item-action">
+                        <div style="font-weight: 700; font-size: 16px;">${state.sales.length}</div>
+                    </div>
+                </div>
+                <div class="list-item" style="border: none; box-shadow: none; padding: 12px 0;">
+                    <div class="item-content">
+                        <div class="item-subtitle">Active services</div>
+                    </div>
+                    <div class="item-action">
+                        <div style="font-weight: 700; font-size: 16px;">${state.services.length}</div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('quickStats').innerHTML = html;
+        }
+
+        function renderReports() {
+            const totalRevenue = state.sales.reduce((sum, s) => sum + s.amount, 0);
+            const totalExpenses = state.purchases.reduce((sum, p) => sum + p.total, 0);
+            const profit = totalRevenue - totalExpenses;
+
+            const stats = [
+                {label: 'Revenue', value: `$${totalRevenue}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`, color: '#6366F1'},
+                {label: 'Expenses', value: `$${totalExpenses}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>`, color: '#EF4444'},
+                {label: 'Profit', value: `$${profit}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>`, color: '#10B981'},
+                {label: 'Avg Sale', value: `$${(totalRevenue / state.sales.length).toFixed(0)}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`, color: '#F59E0B'}
+            ];
+
+            document.getElementById('reportStats').innerHTML = stats.map(s => `
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: ${s.color}20; color: ${s.color};">
+                        ${s.icon}
+                    </div>
+                    <div class="stat-value">${s.value}</div>
+                    <div class="stat-label">${s.label}</div>
+                </div>
+            `).join('');
+
+            // Chart
+            const heights = [60, 85, 45, 90, 75, 100, 55];
+            const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            document.getElementById('revenueChart').innerHTML = heights.map((h, i) => `
+                <div class="chart-bar" style="height: ${h}%;">
+                    <div class="chart-label">${labels[i]}</div>
+                </div>
+            `).join('');
+
+            // Top Services
+            document.getElementById('topServices').innerHTML = state.services.slice(0, 3).map((s, i) => `
+                <div class="list-item" style="border: none; box-shadow: none; padding: 12px 0;">
+                    <div class="item-content">
+                        <div class="item-title">${s.name}</div>
+                    </div>
+                    <div class="item-action">
+                        <div style="font-weight: 700;">$${s.price * (10 - i * 2)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function populateDropdowns() {
+            document.getElementById('bookingClient').innerHTML = '<option value="">Select client...</option>' +
+                state.clients.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+
+            document.getElementById('bookingService').innerHTML = '<option value="">Select service...</option>' +
+                state.services.map(s => `<option value="${s.name}" data-price="${s.price}">${s.name} - $${s.price}</option>`).join('');
+        }
+
+        // Event Listeners
+        document.getElementById('fab').addEventListener('click', () => openModal('bookingModal'));
+
+        document.getElementById('saveBooking').addEventListener('click', () => {
+            const client = document.getElementById('bookingClient').value;
+            const service = document.getElementById('bookingService').value;
+            const date = document.getElementById('bookingDate').value;
+            const time = document.getElementById('bookingTime').value;
+
+            if (!client || !service || !date || !time) {
+                showToast('Please fill all fields');
+                return;
+            }
+
+            const selectedService = state.services.find(s => s.name === service);
+            state.appointments.push({
+                id: Date.now(),
+                client, service, date, time,
+                duration: selectedService.duration,
+                price: selectedService.price,
+                status: 'booked'
+            });
+
+            renderAll();
+            closeModal('bookingModal');
+            showToast('Appointment booked successfully!');
+        });
+
+        document.getElementById('savePurchase').addEventListener('click', () => {
+            const item = document.getElementById('purchaseItem').value;
+            const category = document.getElementById('purchaseCategory').value;
+            const quantity = parseInt(document.getElementById('purchaseQty').value);
+            const price = parseFloat(document.getElementById('purchasePrice').value);
+            const date = document.getElementById('purchaseDate').value;
+
+            if (!item || !category || !quantity || !price || !date) {
+                showToast('Please fill all required fields');
+                return;
+            }
+
+            state.purchases.push({
+                id: Date.now(),
+                item, category, quantity, price, date,
+                total: quantity * price
+            });
+
+            renderAll();
+            closeModal('purchaseModal');
+            showToast('Purchase added successfully!');
+        });
+
+        document.getElementById('saveClient').addEventListener('click', () => {
+            const name = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+            const email = document.getElementById('clientEmail').value;
+
+            if (!name || !phone || !email) {
+                showToast('Please fill all fields');
+                return;
+            }
+
+            state.clients.push({id: Date.now(), name, phone, email});
+            renderAll();
+            closeModal('clientModal');
+            showToast('Client added successfully!');
+        });
+
+        document.getElementById('saveService').addEventListener('click', () => {
+            const name = document.getElementById('serviceName').value;
+            const category = document.getElementById('serviceCategory').value;
+            const price = parseFloat(document.getElementById('servicePrice').value);
+            const duration = parseInt(document.getElementById('serviceDuration').value);
+
+            if (!name || !category || !price || !duration) {
+                showToast('Please fill all fields');
+                return;
+            }
+
+            state.services.push({id: Date.now(), name, category, price, duration, status: 'active'});
+            renderAll();
+            closeModal('serviceModal');
+            showToast('Service added successfully!');
+        });
+
+        // Theme Toggle
+        let isDark = false;
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            isDark = !isDark;
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        });
+
+        document.getElementById('themeBtn').addEventListener('click', () => {
+            isDark = !isDark;
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            showToast(`Switched to ${isDark ? 'dark' : 'light'} mode`);
+        });
+
+        // Export
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            const data = JSON.stringify(state, null, 2);
+            const blob = new Blob([data], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'devinas-salon-data.json';
+            a.click();
+            showToast('Data exported successfully!');
+        });
+
+        // Clear Data
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            if (confirm('Are you sure? This cannot be undone.')) {
+                state.appointments = [];
+                state.clients = [];
+                state.sales = [];
+                state.purchases = [];
+                state.services = [];
+                renderAll();
+                showToast('All data cleared!');
+            }
+        });
+
+        // Add button listeners for modals
+        const addButtons = [
+            {selector: '#purchases .page-header', modal: 'purchaseModal'},
+            {selector: '#clients .page-header', modal: 'clientModal'},
+            {selector: '#services .page-header', modal: 'serviceModal'}
+        ];
+
+        addButtons.forEach(({selector, modal}) => {
+            const header = document.querySelector(selector);
+            if (header) {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-primary';
+                btn.style.marginTop = '12px';
+                btn.innerHTML = `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg> Add`;
+                btn.onclick = () => openModal(modal);
+                header.appendChild(btn);
+            }
+        });
+
+        // Initialize
+        function renderAll() {
+            renderStats();
+            renderAppointments();
+            renderClients();
+            renderSales();
+            renderPurchases();
+            renderServices();
+            renderReports();
+            renderQuickStats();
+            populateDropdowns();
+        }
+
+        // Set current date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
+            weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+        });
+
+        document.getElementById('bookingDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('purchaseDate').value = new Date().toISOString().split('T')[0];
+
+        renderAll();
+    </script>
 </body>
 </html>
