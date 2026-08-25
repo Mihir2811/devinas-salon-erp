@@ -54,7 +54,6 @@
             padding-bottom: 80px;
         }
 
-        /* Top Bar */
         .top-bar {
             position: sticky;
             top: 0;
@@ -121,32 +120,6 @@
             color: var(--text);
         }
 
-        .top-bar-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .icon-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: transparent;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--text-light);
-            transition: all 0.2s;
-        }
-
-        .icon-btn:active {
-            transform: scale(0.95);
-            background: var(--bg);
-        }
-
-        /* Sidebar Drawer */
         .sidebar-overlay {
             position: fixed;
             inset: 0;
@@ -273,7 +246,6 @@
             height: 20px;
         }
 
-        /* Main Content */
         .main-content {
             padding: 20px;
         }
@@ -293,7 +265,6 @@
             color: var(--text-light);
         }
 
-        /* Cards */
         .card {
             background: var(--surface);
             border-radius: 16px;
@@ -314,7 +285,6 @@
             font-weight: 700;
         }
 
-        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -372,7 +342,6 @@
             z-index: 1;
         }
 
-        /* List Items */
         .list-item {
             background: var(--surface);
             border-radius: 12px;
@@ -419,9 +388,11 @@
 
         .item-action {
             flex-shrink: 0;
+            display: flex;
+            gap: 8px;
+            align-items: center;
         }
 
-        /* Badge */
         .badge {
             display: inline-flex;
             align-items: center;
@@ -448,7 +419,6 @@
         .badge-danger { background: #FEE2E2; color: #DC2626; }
         .badge-danger::before { background: #DC2626; }
 
-        /* Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -481,9 +451,15 @@
         .btn-sm {
             padding: 8px 16px;
             font-size: 13px;
+            width: auto;
         }
 
-        /* FAB */
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+        }
+
         .fab {
             position: fixed;
             bottom: 90px;
@@ -507,7 +483,6 @@
             transform: scale(0.95);
         }
 
-        /* Bottom Nav */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -550,7 +525,6 @@
             background: var(--primary-light);
         }
 
-        /* Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -630,7 +604,6 @@
             gap: 12px;
         }
 
-        /* Form */
         .form-group {
             margin-bottom: 20px;
         }
@@ -641,6 +614,11 @@
             font-weight: 600;
             color: var(--text);
             margin-bottom: 8px;
+        }
+
+        .form-label .optional {
+            color: var(--text-light);
+            font-weight: 400;
         }
 
         .form-input, .form-select {
@@ -665,7 +643,6 @@
             resize: vertical;
         }
 
-        /* Toast */
         .toast {
             position: fixed;
             top: 80px;
@@ -709,7 +686,6 @@
             font-weight: 500;
         }
 
-        /* Table */
         .table-container {
             overflow-x: auto;
             margin: 0 -20px;
@@ -739,7 +715,6 @@
             white-space: nowrap;
         }
 
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 40px 20px;
@@ -773,7 +748,6 @@
             color: var(--text-light);
         }
 
-        /* View Management */
         .view {
             display: none;
         }
@@ -782,7 +756,6 @@
             display: block;
         }
 
-        /* Charts */
         .chart {
             height: 200px;
             display: flex;
@@ -809,7 +782,67 @@
             white-space: nowrap;
         }
 
-        /* Desktop Styles */
+        .load-more-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        .filter-bar {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .donut-chart {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .donut-segment {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .chart-legend {
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .legend-item:last-child {
+            border-bottom: none;
+        }
+
+        .legend-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
         @media (min-width: 768px) {
             .container {
                 max-width: 1200px;
@@ -887,7 +920,6 @@
     </style>
 </head>
 <body>
-    <!-- Top Bar -->
     <div class="top-bar">
         <div class="top-bar-left">
             <button class="menu-btn" id="menuBtn">
@@ -900,17 +932,9 @@
                 <div class="logo-text">Devina's Salon</div>
             </div>
         </div>
-        <div class="top-bar-right">
-            <button class="icon-btn" id="themeToggle">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                </svg>
-            </button>
-        </div>
     </div>
 
     <div class="app-layout">
-        <!-- Sidebar -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -988,7 +1012,6 @@
             </nav>
         </aside>
 
-        <!-- Main Content -->
         <div class="main-wrapper">
             <div class="container">
                 <main class="main-content">
@@ -1024,6 +1047,9 @@
                             <p class="page-subtitle">Manage your bookings</p>
                         </div>
                         <div id="appointmentsList"></div>
+                        <button class="load-more-btn" id="loadMoreAppointments" style="display: none;">
+                            Load More Appointments
+                        </button>
                     </div>
 
                     <!-- Clients View -->
@@ -1033,6 +1059,9 @@
                             <p class="page-subtitle"><span id="clientCount">0</span> total clients</p>
                         </div>
                         <div id="clientsList"></div>
+                        <button class="load-more-btn" id="loadMoreClients" style="display: none;">
+                            Load More Clients
+                        </button>
                     </div>
 
                     <!-- Sales View -->
@@ -1050,12 +1079,16 @@
                                             <th>Client</th>
                                             <th>Amount</th>
                                             <th>Status</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody id="salesTable"></tbody>
                                 </table>
                             </div>
                         </div>
+                        <button class="load-more-btn" id="loadMoreSales" style="display: none;">
+                            Load More Sales
+                        </button>
                     </div>
 
                     <!-- Purchases View -->
@@ -1073,12 +1106,16 @@
                                             <th>Item</th>
                                             <th>Qty</th>
                                             <th>Total</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody id="purchasesTable"></tbody>
                                 </table>
                             </div>
                         </div>
+                        <button class="load-more-btn" id="loadMorePurchases" style="display: none;">
+                            Load More Purchases
+                        </button>
                     </div>
 
                     <!-- Services View -->
@@ -1097,6 +1134,20 @@
                             <p class="page-subtitle">Business analytics</p>
                         </div>
 
+                        <div class="filter-bar">
+                            <select class="form-select" id="reportPeriod">
+                                <option value="7">Last 7 Days</option>
+                                <option value="30" selected>Last 30 Days</option>
+                                <option value="90">Last 90 Days</option>
+                                <option value="365">This Year</option>
+                            </select>
+                            <select class="form-select" id="reportType">
+                                <option value="all">All Metrics</option>
+                                <option value="revenue">Revenue Only</option>
+                                <option value="appointments">Appointments Only</option>
+                            </select>
+                        </div>
+
                         <div class="stats-grid" id="reportStats"></div>
 
                         <div class="card">
@@ -1108,9 +1159,52 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="card-title">Top Services</h2>
+                                <h2 class="card-title">Appointment Distribution</h2>
+                            </div>
+                            <div class="donut-chart" id="appointmentDonut">
+                                <svg width="200" height="200" viewBox="0 0 200 200">
+                                    <circle cx="100" cy="100" r="80" fill="none" stroke="#10B981" stroke-width="40" stroke-dasharray="251 503" transform="rotate(-90 100 100)"/>
+                                    <circle cx="100" cy="100" r="80" fill="none" stroke="#EF4444" stroke-width="40" stroke-dasharray="100 503" stroke-dashoffset="-251" transform="rotate(-90 100 100)"/>
+                                    <circle cx="100" cy="100" r="80" fill="none" stroke="#F59E0B" stroke-width="40" stroke-dasharray="50 503" stroke-dashoffset="-351" transform="rotate(-90 100 100)"/>
+                                </svg>
+                            </div>
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <div class="legend-label">
+                                        <div class="legend-dot" style="background: #10B981;"></div>
+                                        Completed
+                                    </div>
+                                    <div style="font-weight: 600;">70%</div>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-label">
+                                        <div class="legend-dot" style="background: #EF4444;"></div>
+                                        Canceled
+                                    </div>
+                                    <div style="font-weight: 600;">20%</div>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-label">
+                                        <div class="legend-dot" style="background: #F59E0B;"></div>
+                                        Booked
+                                    </div>
+                                    <div style="font-weight: 600;">10%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Top Services by Revenue</h2>
                             </div>
                             <div id="topServices"></div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Payment Methods</h2>
+                            </div>
+                            <div id="paymentMethods"></div>
                         </div>
                     </div>
 
@@ -1128,11 +1222,24 @@
 
                         <div class="card">
                             <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">Data Management</h3>
-                            <button class="btn btn-secondary" id="exportBtn">
+                            <button class="btn btn-secondary" id="exportBtn" style="margin-bottom: 12px;">
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                                 </svg>
-                                Export Data
+                                Export as JSON
+                            </button>
+                            <button class="btn btn-secondary" id="exportTxtBtn" style="margin-bottom: 12px;">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                                Export as TXT
+                            </button>
+                            <input type="file" id="importFile" accept=".json,.txt" style="display: none;">
+                            <button class="btn btn-secondary" id="importBtn">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                                </svg>
+                                Import Data
                             </button>
                         </div>
 
@@ -1193,7 +1300,7 @@
         <div class="modal">
             <div class="modal-handle"></div>
             <div class="modal-header">
-                <h3 class="modal-title">New Appointment</h3>
+                <h3 class="modal-title" id="bookingModalTitle">New Appointment</h3>
                 <button class="modal-close" onclick="closeModal('bookingModal')">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -1201,6 +1308,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <input type="hidden" id="editAppointmentId">
                 <div class="form-group">
                     <label class="form-label">Client</label>
                     <select class="form-select" id="bookingClient">
@@ -1222,13 +1330,30 @@
                     <input type="time" class="form-input" id="bookingTime">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Notes (Optional)</label>
+                    <label class="form-label">Status</label>
+                    <select class="form-select" id="bookingStatus">
+                        <option value="booked">Booked</option>
+                        <option value="completed">Completed</option>
+                        <option value="canceled">Canceled</option>
+                    </select>
+                </div>
+                <div class="form-group" id="paymentGroup" style="display: none;">
+                    <label class="form-label">Payment Method</label>
+                    <select class="form-select" id="bookingPayment">
+                        <option value="cash">Cash</option>
+                        <option value="card">Card</option>
+                        <option value="bank">Bank Transfer</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notes <span class="optional">(Optional)</span></label>
                     <textarea class="form-input" id="bookingNotes" placeholder="Add special requirements..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('bookingModal')">Cancel</button>
-                <button class="btn btn-primary" id="saveBooking">Book Now</button>
+                <button class="btn btn-primary" id="saveBooking">Save</button>
             </div>
         </div>
     </div>
@@ -1238,7 +1363,7 @@
         <div class="modal">
             <div class="modal-handle"></div>
             <div class="modal-header">
-                <h3 class="modal-title">New Purchase</h3>
+                <h3 class="modal-title" id="purchaseModalTitle">New Purchase</h3>
                 <button class="modal-close" onclick="closeModal('purchaseModal')">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -1246,6 +1371,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <input type="hidden" id="editPurchaseId">
                 <div class="form-group">
                     <label class="form-label">Item Name</label>
                     <input type="text" class="form-input" id="purchaseItem" placeholder="Enter item name">
@@ -1274,13 +1400,13 @@
                     <input type="date" class="form-input" id="purchaseDate">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Description (Optional)</label>
+                    <label class="form-label">Description <span class="optional">(Optional)</span></label>
                     <textarea class="form-input" id="purchaseDesc" placeholder="Additional details..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('purchaseModal')">Cancel</button>
-                <button class="btn btn-primary" id="savePurchase">Save Purchase</button>
+                <button class="btn btn-primary" id="savePurchase">Save</button>
             </div>
         </div>
     </div>
@@ -1290,7 +1416,7 @@
         <div class="modal">
             <div class="modal-handle"></div>
             <div class="modal-header">
-                <h3 class="modal-title">Add Client</h3>
+                <h3 class="modal-title" id="clientModalTitle">Add Client</h3>
                 <button class="modal-close" onclick="closeModal('clientModal')">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -1298,6 +1424,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <input type="hidden" id="editClientId">
                 <div class="form-group">
                     <label class="form-label">Full Name</label>
                     <input type="text" class="form-input" id="clientName" placeholder="Enter full name">
@@ -1307,13 +1434,13 @@
                     <input type="tel" class="form-input" id="clientPhone" placeholder="(555) 123-4567">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Email</label>
+                    <label class="form-label">Email <span class="optional">(Optional)</span></label>
                     <input type="email" class="form-input" id="clientEmail" placeholder="client@email.com">
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('clientModal')">Cancel</button>
-                <button class="btn btn-primary" id="saveClient">Add Client</button>
+                <button class="btn btn-primary" id="saveClient">Save</button>
             </div>
         </div>
     </div>
@@ -1323,7 +1450,7 @@
         <div class="modal">
             <div class="modal-handle"></div>
             <div class="modal-header">
-                <h3 class="modal-title">Add Service</h3>
+                <h3 class="modal-title" id="serviceModalTitle">Add Service</h3>
                 <button class="modal-close" onclick="closeModal('serviceModal')">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -1331,6 +1458,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <input type="hidden" id="editServiceId">
                 <div class="form-group">
                     <label class="form-label">Service Name</label>
                     <input type="text" class="form-input" id="serviceName" placeholder="Enter service name">
@@ -1355,7 +1483,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('serviceModal')">Cancel</button>
-                <button class="btn btn-primary" id="saveService">Add Service</button>
+                <button class="btn btn-primary" id="saveService">Save</button>
             </div>
         </div>
     </div>
@@ -1372,11 +1500,11 @@
 
     <script>
         // State
-        const state = {
+        let state = {
             appointments: [
-                {id: 1, client: 'Sarah Johnson', service: 'Haircut & Color', date: '2024-12-16', time: '09:00', duration: 90, price: 125, status: 'booked'},
-                {id: 2, client: 'Emily Chen', service: 'Manicure & Pedicure', date: '2024-12-16', time: '10:30', duration: 60, price: 75, status: 'completed'},
-                {id: 3, client: 'Michael Torres', service: "Men's Haircut", date: '2024-12-16', time: '14:00', duration: 30, price: 35, status: 'booked'}
+                {id: 1, client: 'Sarah Johnson', service: 'Haircut & Color', date: '2024-12-16', time: '09:00', duration: 90, price: 125, status: 'booked', payment: null},
+                {id: 2, client: 'Emily Chen', service: 'Manicure & Pedicure', date: '2024-12-16', time: '10:30', duration: 60, price: 75, status: 'completed', payment: 'card'},
+                {id: 3, client: 'Michael Torres', service: "Men's Haircut", date: '2024-12-16', time: '14:00', duration: 30, price: 35, status: 'booked', payment: null}
             ],
             clients: [
                 {id: 1, name: 'Sarah Johnson', phone: '(555) 123-4567', email: 'sarah@email.com'},
@@ -1384,18 +1512,37 @@
                 {id: 3, name: 'Michael Torres', phone: '(555) 345-6789', email: 'michael@email.com'}
             ],
             sales: [
-                {id: 1, date: '2024-12-16', client: 'Sarah Johnson', service: 'Haircut & Color', payment: 'Card', status: 'paid', amount: 125},
-                {id: 2, date: '2024-12-16', client: 'Emily Chen', service: 'Manicure', payment: 'Cash', status: 'paid', amount: 75}
+                {id: 1, date: '2024-12-16', client: 'Sarah Johnson', service: 'Haircut & Color', payment: 'card', status: 'paid', amount: 125},
+                {id: 2, date: '2024-12-16', client: 'Emily Chen', service: 'Manicure', payment: 'cash', status: 'paid', amount: 75}
             ],
             purchases: [
-                {id: 1, date: '2024-12-15', item: 'Hair Color - Blonde', category: 'Hair Products', quantity: 10, price: 25, total: 250},
-                {id: 2, date: '2024-12-14', item: 'Nail Polish Set', category: 'Nail Products', quantity: 5, price: 30, total: 150}
+                {id: 1, date: '2024-12-15', item: 'Hair Color - Blonde', category: 'Hair Products', quantity: 10, price: 25, total: 250, description: ''},
+                {id: 2, date: '2024-12-14', item: 'Nail Polish Set', category: 'Nail Products', quantity: 5, price: 30, total: 150, description: ''}
             ],
             services: [
                 {id: 1, name: "Women's Haircut", price: 65, duration: 45, category: 'Hair Services', status: 'active'},
                 {id: 2, name: 'Hair Color', price: 120, duration: 90, category: 'Hair Services', status: 'active'},
                 {id: 3, name: 'Manicure', price: 45, duration: 30, category: 'Nail Services', status: 'active'}
-            ]
+            ],
+            displayCounts: {
+                appointments: 10,
+                clients: 10,
+                sales: 10,
+                purchases: 10
+            }
+        };
+
+        // Load state from localStorage
+        const loadState = () => {
+            const saved = localStorage.getItem('devinaSalonData');
+            if (saved) {
+                state = JSON.parse(saved);
+            }
+        };
+
+        // Save state to localStorage
+        const saveState = () => {
+            localStorage.setItem('devinaSalonData', JSON.stringify(state));
         };
 
         // Navigation
@@ -1451,6 +1598,16 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
+        // Status change handler
+        document.getElementById('bookingStatus').addEventListener('change', function() {
+            const paymentGroup = document.getElementById('paymentGroup');
+            if (this.value === 'completed') {
+                paymentGroup.style.display = 'block';
+            } else {
+                paymentGroup.style.display = 'none';
+            }
+        });
+
         // Render Functions
         function renderStats() {
             const totalRevenue = state.sales.reduce((sum, s) => sum + s.amount, 0);
@@ -1473,7 +1630,11 @@
         }
 
         function renderAppointments() {
-            const html = state.appointments.map(a => `
+            const limit = state.displayCounts.appointments;
+            const appointments = state.appointments.slice(0, limit);
+            const hasMore = state.appointments.length > limit;
+            
+            const html = appointments.map(a => `
                 <div class="list-item">
                     <div class="item-icon" style="background: #EEF2FF; color: #6366F1;">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
@@ -1485,7 +1646,17 @@
                         <div class="item-subtitle">${a.service} • ${a.time}</div>
                     </div>
                     <div class="item-action">
-                        <span class="badge badge-${a.status === 'completed' ? 'success' : 'primary'}">${a.status}</span>
+                        <span class="badge badge-${a.status === 'completed' ? 'success' : a.status === 'canceled' ? 'danger' : 'primary'}">${a.status}</span>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="editAppointment(${a.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="deleteAppointment(${a.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             `).join('');
@@ -1493,11 +1664,18 @@
             document.getElementById('todayAppointments').innerHTML = html;
             document.getElementById('appointmentsList').innerHTML = html;
             document.getElementById('appointmentBadge').textContent = state.appointments.length;
+            
+            const loadMoreBtn = document.getElementById('loadMoreAppointments');
+            loadMoreBtn.style.display = hasMore ? 'block' : 'none';
         }
 
         function renderClients() {
+            const limit = state.displayCounts.clients;
+            const clients = state.clients.slice(0, limit);
+            const hasMore = state.clients.length > limit;
+            
             const colors = ['#EEF2FF', '#D1FAE5', '#FEF3C7', '#FEE2E2'];
-            const html = state.clients.map((c, i) => `
+            const html = clients.map((c, i) => `
                 <div class="list-item">
                     <div class="item-icon" style="background: ${colors[i % colors.length]};">
                         ${c.name.split(' ').map(n => n[0]).join('')}
@@ -1506,39 +1684,87 @@
                         <div class="item-title">${c.name}</div>
                         <div class="item-subtitle">${c.phone}</div>
                     </div>
+                    <div class="item-action">
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="editClient(${c.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="deleteClient(${c.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             `).join('');
 
             document.getElementById('clientsList').innerHTML = html;
             document.getElementById('clientCount').textContent = state.clients.length;
+            
+            const loadMoreBtn = document.getElementById('loadMoreClients');
+            loadMoreBtn.style.display = hasMore ? 'block' : 'none';
         }
 
         function renderSales() {
+            const limit = state.displayCounts.sales;
+            const sales = state.sales.slice(0, limit);
+            const hasMore = state.sales.length > limit;
+            
             const totalRevenue = state.sales.reduce((sum, s) => sum + s.amount, 0);
             document.getElementById('totalRevenue').textContent = totalRevenue;
 
-            document.getElementById('salesTable').innerHTML = state.sales.map(s => `
+            document.getElementById('salesTable').innerHTML = sales.map(s => `
                 <tr>
                     <td>${s.date}</td>
                     <td>${s.client}</td>
                     <td style="font-weight: 600;">$${s.amount}</td>
                     <td><span class="badge badge-success">${s.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="deleteSale(${s.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        </button>
+                    </td>
                 </tr>
             `).join('');
+            
+            const loadMoreBtn = document.getElementById('loadMoreSales');
+            loadMoreBtn.style.display = hasMore ? 'block' : 'none';
         }
 
         function renderPurchases() {
+            const limit = state.displayCounts.purchases;
+            const purchases = state.purchases.slice(0, limit);
+            const hasMore = state.purchases.length > limit;
+            
             const totalExpenses = state.purchases.reduce((sum, p) => sum + p.total, 0);
             document.getElementById('totalExpenses').textContent = totalExpenses;
 
-            document.getElementById('purchasesTable').innerHTML = state.purchases.map(p => `
+            document.getElementById('purchasesTable').innerHTML = purchases.map(p => `
                 <tr>
                     <td>${p.date}</td>
                     <td>${p.item}</td>
                     <td>${p.quantity}</td>
                     <td style="font-weight: 600;">$${p.total}</td>
+                    <td>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="editPurchase(${p.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="deletePurchase(${p.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        </button>
+                    </td>
                 </tr>
             `).join('');
+            
+            const loadMoreBtn = document.getElementById('loadMorePurchases');
+            loadMoreBtn.style.display = hasMore ? 'block' : 'none';
         }
 
         function renderServices() {
@@ -1555,6 +1781,16 @@
                     </div>
                     <div class="item-action">
                         <span class="badge badge-success">active</span>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="editService(${s.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                        </button>
+                        <button class="btn btn-sm btn-icon btn-secondary" onclick="deleteService(${s.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             `).join('');
@@ -1602,7 +1838,7 @@
                 {label: 'Revenue', value: `$${totalRevenue}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`, color: '#6366F1'},
                 {label: 'Expenses', value: `$${totalExpenses}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>`, color: '#EF4444'},
                 {label: 'Profit', value: `$${profit}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>`, color: '#10B981'},
-                {label: 'Avg Sale', value: `$${(totalRevenue / state.sales.length).toFixed(0)}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`, color: '#F59E0B'}
+                {label: 'Avg Sale', value: `$${(totalRevenue / Math.max(state.sales.length, 1)).toFixed(0)}`, icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`, color: '#F59E0B'}
             ];
 
             document.getElementById('reportStats').innerHTML = stats.map(s => `
@@ -1625,13 +1861,31 @@
             `).join('');
 
             // Top Services
-            document.getElementById('topServices').innerHTML = state.services.slice(0, 3).map((s, i) => `
+            document.getElementById('topServices').innerHTML = state.services.slice(0, 5).map((s, i) => `
                 <div class="list-item" style="border: none; box-shadow: none; padding: 12px 0;">
                     <div class="item-content">
                         <div class="item-title">${s.name}</div>
                     </div>
                     <div class="item-action">
                         <div style="font-weight: 700;">$${s.price * (10 - i * 2)}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Payment Methods
+            const paymentCounts = state.sales.reduce((acc, s) => {
+                acc[s.payment] = (acc[s.payment] || 0) + 1;
+                return acc;
+            }, {});
+            
+            const total = state.sales.length;
+            document.getElementById('paymentMethods').innerHTML = Object.entries(paymentCounts).map(([method, count]) => `
+                <div class="list-item" style="border: none; box-shadow: none; padding: 12px 0;">
+                    <div class="item-content">
+                        <div class="item-title">${method.charAt(0).toUpperCase() + method.slice(1)}</div>
+                    </div>
+                    <div class="item-action">
+                        <div style="font-weight: 700;">${((count / total) * 100).toFixed(0)}%</div>
                     </div>
                 </div>
             `).join('');
@@ -1642,77 +1896,241 @@
                 state.clients.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
 
             document.getElementById('bookingService').innerHTML = '<option value="">Select service...</option>' +
-                state.services.map(s => `<option value="${s.name}" data-price="${s.price}">${s.name} - $${s.price}</option>`).join('');
+                state.services.map(s => `<option value="${s.name}" data-price="${s.price}" data-duration="${s.duration}">${s.name} - $${s.price}</option>`).join('');
+        }
+
+        // CRUD Operations
+        function editAppointment(id) {
+            const appointment = state.appointments.find(a => a.id === id);
+            if (!appointment) return;
+            
+            document.getElementById('bookingModalTitle').textContent = 'Edit Appointment';
+            document.getElementById('editAppointmentId').value = id;
+            document.getElementById('bookingClient').value = appointment.client;
+            document.getElementById('bookingService').value = appointment.service;
+            document.getElementById('bookingDate').value = appointment.date;
+            document.getElementById('bookingTime').value = appointment.time;
+            document.getElementById('bookingStatus').value = appointment.status;
+            document.getElementById('bookingNotes').value = appointment.notes || '';
+            
+            if (appointment.status === 'completed') {
+                document.getElementById('paymentGroup').style.display = 'block';
+                document.getElementById('bookingPayment').value = appointment.payment || 'cash';
+            }
+            
+            openModal('bookingModal');
+        }
+
+        function deleteAppointment(id) {
+            if (confirm('Delete this appointment?')) {
+                state.appointments = state.appointments.filter(a => a.id !== id);
+                saveState();
+                renderAll();
+                showToast('Appointment deleted');
+            }
+        }
+
+        function editClient(id) {
+            const client = state.clients.find(c => c.id === id);
+            if (!client) return;
+            
+            document.getElementById('clientModalTitle').textContent = 'Edit Client';
+            document.getElementById('editClientId').value = id;
+            document.getElementById('clientName').value = client.name;
+            document.getElementById('clientPhone').value = client.phone;
+            document.getElementById('clientEmail').value = client.email || '';
+            
+            openModal('clientModal');
+        }
+
+        function deleteClient(id) {
+            if (confirm('Delete this client?')) {
+                state.clients = state.clients.filter(c => c.id !== id);
+                saveState();
+                renderAll();
+                showToast('Client deleted');
+            }
+        }
+
+        function editPurchase(id) {
+            const purchase = state.purchases.find(p => p.id === id);
+            if (!purchase) return;
+            
+            document.getElementById('purchaseModalTitle').textContent = 'Edit Purchase';
+            document.getElementById('editPurchaseId').value = id;
+            document.getElementById('purchaseItem').value = purchase.item;
+            document.getElementById('purchaseCategory').value = purchase.category;
+            document.getElementById('purchaseQty').value = purchase.quantity;
+            document.getElementById('purchasePrice').value = purchase.price;
+            document.getElementById('purchaseDate').value = purchase.date;
+            document.getElementById('purchaseDesc').value = purchase.description || '';
+            
+            openModal('purchaseModal');
+        }
+
+        function deletePurchase(id) {
+            if (confirm('Delete this purchase?')) {
+                state.purchases = state.purchases.filter(p => p.id !== id);
+                saveState();
+                renderAll();
+                showToast('Purchase deleted');
+            }
+        }
+
+        function editService(id) {
+            const service = state.services.find(s => s.id === id);
+            if (!service) return;
+            
+            document.getElementById('serviceModalTitle').textContent = 'Edit Service';
+            document.getElementById('editServiceId').value = id;
+            document.getElementById('serviceName').value = service.name;
+            document.getElementById('serviceCategory').value = service.category;
+            document.getElementById('servicePrice').value = service.price;
+            document.getElementById('serviceDuration').value = service.duration;
+            
+            openModal('serviceModal');
+        }
+
+        function deleteService(id) {
+            if (confirm('Delete this service?')) {
+                state.services = state.services.filter(s => s.id !== id);
+                saveState();
+                renderAll();
+                showToast('Service deleted');
+            }
+        }
+
+        function deleteSale(id) {
+            if (confirm('Delete this sale?')) {
+                state.sales = state.sales.filter(s => s.id !== id);
+                saveState();
+                renderAll();
+                showToast('Sale deleted');
+            }
         }
 
         // Event Listeners
-        document.getElementById('fab').addEventListener('click', () => openModal('bookingModal'));
+        document.getElementById('fab').addEventListener('click', () => {
+            document.getElementById('bookingModalTitle').textContent = 'New Appointment';
+            document.getElementById('editAppointmentId').value = '';
+            document.getElementById('bookingClient').value = '';
+            document.getElementById('bookingService').value = '';
+            document.getElementById('bookingDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('bookingTime').value = '';
+            document.getElementById('bookingStatus').value = 'booked';
+            document.getElementById('bookingNotes').value = '';
+            document.getElementById('paymentGroup').style.display = 'none';
+            openModal('bookingModal');
+        });
 
         document.getElementById('saveBooking').addEventListener('click', () => {
+            const id = document.getElementById('editAppointmentId').value;
             const client = document.getElementById('bookingClient').value;
             const service = document.getElementById('bookingService').value;
             const date = document.getElementById('bookingDate').value;
             const time = document.getElementById('bookingTime').value;
-
+            const status = document.getElementById('bookingStatus').value;
+            const notes = document.getElementById('bookingNotes').value;
+            
             if (!client || !service || !date || !time) {
-                showToast('Please fill all fields');
+                showToast('Please fill all required fields');
                 return;
             }
 
             const selectedService = state.services.find(s => s.name === service);
-            state.appointments.push({
-                id: Date.now(),
-                client, service, date, time,
+            const appointmentData = {
+                client, service, date, time, status, notes,
                 duration: selectedService.duration,
                 price: selectedService.price,
-                status: 'booked'
-            });
+                payment: status === 'completed' ? document.getElementById('bookingPayment').value : null
+            };
 
+            if (id) {
+                const index = state.appointments.findIndex(a => a.id == id);
+                state.appointments[index] = {...state.appointments[index], ...appointmentData};
+                showToast('Appointment updated!');
+            } else {
+                state.appointments.push({id: Date.now(), ...appointmentData});
+                
+                // Add to sales if completed
+                if (status === 'completed') {
+                    state.sales.push({
+                        id: Date.now(),
+                        date,
+                        client,
+                        service,
+                        payment: appointmentData.payment,
+                        status: 'paid',
+                        amount: selectedService.price
+                    });
+                }
+                showToast('Appointment booked!');
+            }
+
+            saveState();
             renderAll();
             closeModal('bookingModal');
-            showToast('Appointment booked successfully!');
         });
 
         document.getElementById('savePurchase').addEventListener('click', () => {
+            const id = document.getElementById('editPurchaseId').value;
             const item = document.getElementById('purchaseItem').value;
             const category = document.getElementById('purchaseCategory').value;
             const quantity = parseInt(document.getElementById('purchaseQty').value);
             const price = parseFloat(document.getElementById('purchasePrice').value);
             const date = document.getElementById('purchaseDate').value;
+            const description = document.getElementById('purchaseDesc').value;
 
             if (!item || !category || !quantity || !price || !date) {
                 showToast('Please fill all required fields');
                 return;
             }
 
-            state.purchases.push({
-                id: Date.now(),
-                item, category, quantity, price, date,
-                total: quantity * price
-            });
+            const purchaseData = {item, category, quantity, price, date, description, total: quantity * price};
 
+            if (id) {
+                const index = state.purchases.findIndex(p => p.id == id);
+                state.purchases[index] = {...state.purchases[index], ...purchaseData};
+                showToast('Purchase updated!');
+            } else {
+                state.purchases.push({id: Date.now(), ...purchaseData});
+                showToast('Purchase added!');
+            }
+
+            saveState();
             renderAll();
             closeModal('purchaseModal');
-            showToast('Purchase added successfully!');
         });
 
         document.getElementById('saveClient').addEventListener('click', () => {
+            const id = document.getElementById('editClientId').value;
             const name = document.getElementById('clientName').value;
             const phone = document.getElementById('clientPhone').value;
             const email = document.getElementById('clientEmail').value;
 
-            if (!name || !phone || !email) {
-                showToast('Please fill all fields');
+            if (!name || !phone) {
+                showToast('Please fill all required fields');
                 return;
             }
 
-            state.clients.push({id: Date.now(), name, phone, email});
+            const clientData = {name, phone, email};
+
+            if (id) {
+                const index = state.clients.findIndex(c => c.id == id);
+                state.clients[index] = {...state.clients[index], ...clientData};
+                showToast('Client updated!');
+            } else {
+                state.clients.push({id: Date.now(), ...clientData});
+                showToast('Client added!');
+            }
+
+            saveState();
             renderAll();
             closeModal('clientModal');
-            showToast('Client added successfully!');
         });
 
         document.getElementById('saveService').addEventListener('click', () => {
+            const id = document.getElementById('editServiceId').value;
             const name = document.getElementById('serviceName').value;
             const category = document.getElementById('serviceCategory').value;
             const price = parseFloat(document.getElementById('servicePrice').value);
@@ -1723,26 +2141,96 @@
                 return;
             }
 
-            state.services.push({id: Date.now(), name, category, price, duration, status: 'active'});
+            const serviceData = {name, category, price, duration, status: 'active'};
+
+            if (id) {
+                const index = state.services.findIndex(s => s.id == id);
+                state.services[index] = {...state.services[index], ...serviceData};
+                showToast('Service updated!');
+            } else {
+                state.services.push({id: Date.now(), ...serviceData});
+                showToast('Service added!');
+            }
+
+            saveState();
             renderAll();
             closeModal('serviceModal');
-            showToast('Service added successfully!');
+        });
+
+        // Load More Buttons
+        document.getElementById('loadMoreAppointments').addEventListener('click', () => {
+            state.displayCounts.appointments += 10;
+            renderAppointments();
+        });
+
+        document.getElementById('loadMoreClients').addEventListener('click', () => {
+            state.displayCounts.clients += 10;
+            renderClients();
+        });
+
+        document.getElementById('loadMoreSales').addEventListener('click', () => {
+            state.displayCounts.sales += 10;
+            renderSales();
+        });
+
+        document.getElementById('loadMorePurchases').addEventListener('click', () => {
+            state.displayCounts.purchases += 10;
+            renderPurchases();
+        });
+
+        // Add buttons for modals
+        const addButtons = [
+            {selector: '#purchases .page-header', modal: 'purchaseModal', title: 'New Purchase', clear: () => {
+                document.getElementById('purchaseModalTitle').textContent = 'New Purchase';
+                document.getElementById('editPurchaseId').value = '';
+                document.getElementById('purchaseItem').value = '';
+                document.getElementById('purchaseCategory').value = '';
+                document.getElementById('purchaseQty').value = '';
+                document.getElementById('purchasePrice').value = '';
+                document.getElementById('purchaseDate').value = new Date().toISOString().split('T')[0];
+                document.getElementById('purchaseDesc').value = '';
+            }},
+            {selector: '#clients .page-header', modal: 'clientModal', title: 'Add Client', clear: () => {
+                document.getElementById('clientModalTitle').textContent = 'Add Client';
+                document.getElementById('editClientId').value = '';
+                document.getElementById('clientName').value = '';
+                document.getElementById('clientPhone').value = '';
+                document.getElementById('clientEmail').value = '';
+            }},
+            {selector: '#services .page-header', modal: 'serviceModal', title: 'Add Service', clear: () => {
+                document.getElementById('serviceModalTitle').textContent = 'Add Service';
+                document.getElementById('editServiceId').value = '';
+                document.getElementById('serviceName').value = '';
+                document.getElementById('serviceCategory').value = '';
+                document.getElementById('servicePrice').value = '';
+                document.getElementById('serviceDuration').value = '';
+            }}
+        ];
+
+        addButtons.forEach(({selector, modal, title, clear}) => {
+            const header = document.querySelector(selector);
+            if (header) {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-primary';
+                btn.style.marginTop = '12px';
+                btn.innerHTML = `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg> Add`;
+                btn.onclick = () => {
+                    clear();
+                    openModal(modal);
+                };
+                header.appendChild(btn);
+            }
         });
 
         // Theme Toggle
         let isDark = false;
-        document.getElementById('themeToggle').addEventListener('click', () => {
-            isDark = !isDark;
-            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-        });
-
         document.getElementById('themeBtn').addEventListener('click', () => {
             isDark = !isDark;
             document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
             showToast(`Switched to ${isDark ? 'dark' : 'light'} mode`);
         });
 
-        // Export
+        // Export/Import
         document.getElementById('exportBtn').addEventListener('click', () => {
             const data = JSON.stringify(state, null, 2);
             const blob = new Blob([data], {type: 'application/json'});
@@ -1751,38 +2239,56 @@
             a.href = url;
             a.download = 'devinas-salon-data.json';
             a.click();
-            showToast('Data exported successfully!');
+            showToast('Data exported as JSON!');
         });
 
-        // Clear Data
+        document.getElementById('exportTxtBtn').addEventListener('click', () => {
+            const data = JSON.stringify(state, null, 2);
+            const blob = new Blob([data], {type: 'text/plain'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'devinas-salon-data.txt';
+            a.click();
+            showToast('Data exported as TXT!');
+        });
+
+        document.getElementById('importBtn').addEventListener('click', () => {
+            document.getElementById('importFile').click();
+        });
+
+        document.getElementById('importFile').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const imported = JSON.parse(event.target.result);
+                    state = {...state, ...imported};
+                    saveState();
+                    renderAll();
+                    showToast('Data imported successfully!');
+                } catch (error) {
+                    showToast('Import failed. Invalid file.');
+                }
+            };
+            reader.readAsText(file);
+        });
+
         document.getElementById('clearBtn').addEventListener('click', () => {
             if (confirm('Are you sure? This cannot be undone.')) {
-                state.appointments = [];
-                state.clients = [];
-                state.sales = [];
-                state.purchases = [];
-                state.services = [];
+                state = {
+                    appointments: [],
+                    clients: [],
+                    sales: [],
+                    purchases: [],
+                    services: [],
+                    displayCounts: {appointments: 10, clients: 10, sales: 10, purchases: 10}
+                };
+                saveState();
                 renderAll();
                 showToast('All data cleared!');
-            }
-        });
-
-        // Add button listeners for modals
-        const addButtons = [
-            {selector: '#purchases .page-header', modal: 'purchaseModal'},
-            {selector: '#clients .page-header', modal: 'clientModal'},
-            {selector: '#services .page-header', modal: 'serviceModal'}
-        ];
-
-        addButtons.forEach(({selector, modal}) => {
-            const header = document.querySelector(selector);
-            if (header) {
-                const btn = document.createElement('button');
-                btn.className = 'btn btn-primary';
-                btn.style.marginTop = '12px';
-                btn.innerHTML = `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg> Add`;
-                btn.onclick = () => openModal(modal);
-                header.appendChild(btn);
             }
         });
 
@@ -1799,14 +2305,11 @@
             populateDropdowns();
         }
 
-        // Set current date
         document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
             weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
         });
 
-        document.getElementById('bookingDate').value = new Date().toISOString().split('T')[0];
-        document.getElementById('purchaseDate').value = new Date().toISOString().split('T')[0];
-
+        loadState();
         renderAll();
     </script>
 </body>
