@@ -393,6 +393,58 @@
             align-items: center;
         }
 
+        /* Schedule list item - stacked vertically so title, subtitle, status,
+           and action buttons (Edit/Delete/Send Reminder) are all fully visible */
+        .schedule-item {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .schedule-item-top {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .schedule-item-top .item-title,
+        .schedule-item-top .item-subtitle {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: unset;
+        }
+        .schedule-item-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-end;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+        .btn-reminder {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-reminder:active {
+            transform: scale(0.97);
+        }
+        [data-theme="dark"] .btn-reminder {
+            background: rgba(99, 102, 241, 0.15);
+        }
+
         .badge {
             display: inline-flex;
             align-items: center;
@@ -1518,6 +1570,27 @@
                             </div>
                             <div id="paymentMethods"></div>
                         </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Appointments by Day of Week</h2>
+                            </div>
+                            <div class="chart" id="weekdayChart"></div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Expenses by Category</h2>
+                            </div>
+                            <div id="expenseCategories"></div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Top Clients by Revenue</h2>
+                            </div>
+                            <div id="topClients"></div>
+                        </div>
                     </div>
 
                     <!-- Settings View -->
@@ -1840,9 +1913,11 @@
                     <label class="form-label">Category</label>
                     <select class="form-select" id="serviceCategory">
                         <option value="">Select category...</option>
-                        <option value="Hair Services">Hair Services</option>
-                        <option value="Nail Services">Nail Services</option>
-                        <option value="Spa Services">Spa Services</option>
+                        <option value="Hair Service">Hair Service</option>
+                        <option value="Face Service">Face Service</option>
+                        <option value="Eye Service">Eye Service</option>
+                        <option value="Skin Service">Skin Service</option>
+                        <option value="Body Service">Body Service</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -2027,18 +2102,30 @@
             const displayed = appointments.slice(0, limit);
             
             const html = displayed.map(a => `
-                <div class="list-item">
-                    <div class="item-icon" style="background: #EEF2FF; color: #6366F1;">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
+                <div class="schedule-item">
+                    <div class="schedule-item-top">
+                        <div class="item-icon" style="background: #EEF2FF; color: #6366F1;">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div class="item-content">
+                            <div class="item-title">${a.client}</div>
+                            <div class="item-subtitle">${a.service} • ${a.date} ${a.time}</div>
+                        </div>
+                        <div class="item-action">
+                            <span class="badge badge-${a.status === 'completed' ? 'success' : a.status === 'canceled' ? 'danger' : 'primary'}">${a.status}</span>
+                        </div>
                     </div>
-                    <div class="item-content">
-                        <div class="item-title">${a.client}</div>
-                        <div class="item-subtitle">${a.service} • ${a.date} ${a.time}</div>
-                    </div>
-                    <div class="item-action">
-                        <span class="badge badge-${a.status === 'completed' ? 'success' : a.status === 'canceled' ? 'danger' : 'primary'}">${a.status}</span>
+                    <div class="schedule-item-actions">
+                        ${a.status === 'booked' ? `
+                        <button class="btn-reminder" onclick="sendReminder(${a.id})">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-6l-4 4v-4z"/>
+                            </svg>
+                            Send Reminder
+                        </button>
+                        ` : ''}
                         <button class="btn btn-sm btn-icon btn-secondary" onclick="editAppointment(${a.id})">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -2580,6 +2667,60 @@
                     </div>
                 </div>
             `).join('') : '<div class="empty-state"><div class="empty-text">No sales data yet</div></div>';
+
+            // Appointments by Day of Week
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const dayCounts = [0, 0, 0, 0, 0, 0, 0];
+            periodAppointments.forEach(a => {
+                const d = new Date(a.date);
+                if (!isNaN(d)) dayCounts[d.getDay()]++;
+            });
+            const maxDayCount = Math.max(...dayCounts, 1);
+            const weekdayChartEl = document.getElementById('weekdayChart');
+            if (periodAppointments.length === 0) {
+                weekdayChartEl.style.display = 'none';
+                weekdayChartEl.parentElement.querySelector('.empty-weekday-msg')?.remove();
+                weekdayChartEl.insertAdjacentHTML('afterend', '<div class="empty-state empty-weekday-msg"><div class="empty-text">No appointment data yet</div></div>');
+            } else {
+                weekdayChartEl.parentElement.querySelector('.empty-weekday-msg')?.remove();
+                weekdayChartEl.style.display = 'flex';
+                weekdayChartEl.innerHTML = dayNames.map((label, i) => {
+                    const h = Math.max(6, Math.round((dayCounts[i] / maxDayCount) * 100));
+                    return `<div class="chart-bar" style="height: ${h}%; background: var(--info);" title="${dayCounts[i]} appointments"><div class="chart-label">${label}</div></div>`;
+                }).join('');
+            }
+
+            // Expenses by Category
+            const categoryTotals = {};
+            periodPurchases.forEach(p => { categoryTotals[p.category] = (categoryTotals[p.category] || 0) + p.total; });
+            const sortedCategories = Object.entries(categoryTotals).sort((a, b) => b[1] - a[1]);
+            const maxCategoryTotal = Math.max(...sortedCategories.map(c => c[1]), 1);
+            document.getElementById('expenseCategories').innerHTML = sortedCategories.length ? sortedCategories.map(([cat, amt]) => `
+                <div style="padding: 10px 0;">
+                    <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                        <span>${cat}</span>
+                        <span style="font-weight: 700;">$${amt.toFixed(0)}</span>
+                    </div>
+                    <div style="background: var(--bg); border-radius: 6px; height: 8px; overflow: hidden;">
+                        <div style="background: var(--danger); height: 100%; width: ${(amt / maxCategoryTotal) * 100}%; border-radius: 6px;"></div>
+                    </div>
+                </div>
+            `).join('') : '<div class="empty-state"><div class="empty-text">No purchase data yet</div></div>';
+
+            // Top Clients by Revenue
+            const clientRevenue = {};
+            periodSales.forEach(s => { clientRevenue[s.client] = (clientRevenue[s.client] || 0) + s.amount; });
+            const topClients = Object.entries(clientRevenue).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            document.getElementById('topClients').innerHTML = topClients.length ? topClients.map(([name, revenue]) => `
+                <div class="list-item" style="border: none; box-shadow: none; padding: 12px 0;">
+                    <div class="item-content">
+                        <div class="item-title">${name}</div>
+                    </div>
+                    <div class="item-action">
+                        <div style="font-weight: 700;">$${revenue.toFixed(0)}</div>
+                    </div>
+                </div>
+            `).join('') : '<div class="empty-state"><div class="empty-text">No sales data yet</div></div>';
         }
 
         function populateDropdowns() {
@@ -2624,6 +2765,37 @@
                 saveState();
                 renderAll();
                 showToast('Appointment deleted');
+            }
+        }
+
+        function sendReminder(id) {
+            const appointment = state.appointments.find(a => a.id === id);
+            if (!appointment) return;
+
+            const client = state.clients.find(c => c.name === appointment.client);
+            const firstName = appointment.client.split(' ')[0];
+
+            let dateTimeStr = `${appointment.date} at ${appointment.time}`;
+            const parsed = new Date(`${appointment.date}T${appointment.time}`);
+            if (!isNaN(parsed)) {
+                const dateStr = parsed.toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric'});
+                const timeStr = parsed.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'});
+                dateTimeStr = `${dateStr} at ${timeStr}`;
+            }
+
+            const message = `Hi ${firstName}, I hope you're doing well! Just a gentle reminder about your appointment for ${appointment.service} on ${dateTimeStr}. Looking forward to seeing you! 😊`;
+
+            const rawPhone = client?.phone || '';
+            const phone = rawPhone.replace(/[^0-9+]/g, '');
+            const encodedMessage = encodeURIComponent(message);
+
+            // sms: URI - works across iOS/Android to open the Messages app with a pre-filled draft
+            const smsUri = phone ? `sms:${phone}?&body=${encodedMessage}` : `sms:?&body=${encodedMessage}`;
+
+            window.location.href = smsUri;
+
+            if (!phone) {
+                showToast('No phone number on file — add one to the client, or paste the number in Messages');
             }
         }
 
@@ -2723,7 +2895,7 @@
         }
 
         // Event Listeners
-        document.getElementById('fab').addEventListener('click', () => {
+        function openNewAppointmentModal() {
             document.getElementById('bookingModalTitle').textContent = 'New Appointment';
             document.getElementById('editAppointmentId').value = '';
             document.getElementById('bookingClient').value = '';
@@ -2734,7 +2906,9 @@
             document.getElementById('bookingNotes').value = '';
             document.getElementById('paymentGroup').style.display = 'none';
             openModal('bookingModal');
-        });
+        }
+
+        document.getElementById('fab').addEventListener('click', openNewAppointmentModal);
 
         document.getElementById('saveBooking').addEventListener('click', () => {
             const id = document.getElementById('editAppointmentId').value;
@@ -3006,6 +3180,7 @@
 
         // Add buttons for modals
         const addButtons = [
+            {selector: '#appointments .page-header', modal: 'bookingModal', title: 'New Appointment', clear: openNewAppointmentModal, skipOpen: true},
             {selector: '#sales .page-header', modal: 'saleModal', title: 'New Sale', clear: () => {
                 document.getElementById('saleModalTitle').textContent = 'New Sale';
                 document.getElementById('editSaleId').value = '';
@@ -3043,7 +3218,7 @@
             }}
         ];
 
-        addButtons.forEach(({selector, modal, title, clear}) => {
+        addButtons.forEach(({selector, modal, title, clear, skipOpen}) => {
             const header = document.querySelector(selector);
             if (header) {
                 const btn = document.createElement('button');
@@ -3052,7 +3227,7 @@
                 btn.innerHTML = `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg> Add`;
                 btn.onclick = () => {
                     clear();
-                    openModal(modal);
+                    if (!skipOpen) openModal(modal);
                 };
                 header.appendChild(btn);
             }
